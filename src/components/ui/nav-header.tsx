@@ -4,25 +4,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const navItems = [
-  { label: "Home", href: "/" },
+  { label: "Home",     href: "/" },
   { label: "Products", href: "/products" },
-  { label: "Order", href: "/order" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Order",    href: "/order" },
+  { label: "About",    href: "/about" },
+  { label: "Contact",  href: "/contact" },
 ];
 
-type Position = {
-  left: number;
-  width: number;
-  opacity: number;
-};
+type Position = { left: number; width: number; opacity: number };
 
 function NavHeader() {
-  const [position, setPosition] = useState<Position>({
-    left: 0,
-    width: 0,
-    opacity: 0,
-  });
+  const [position, setPosition] = useState<Position>({ left: 0, width: 0, opacity: 0 });
 
   return (
     <ul
@@ -63,18 +55,11 @@ function Tab({
       onMouseEnter={() => {
         if (!ref.current) return;
         const { width } = ref.current.getBoundingClientRect();
-        setPosition({
-          width,
-          opacity: 1,
-          left: ref.current.offsetLeft,
-        });
+        setPosition({ width, opacity: 1, left: ref.current.offsetLeft });
       }}
       className="relative z-10 block cursor-pointer px-4 py-2 text-xs uppercase font-bold tracking-widest"
     >
-      <Link
-        href={href}
-        className="text-[#1a3d2b] hover:text-[#c8961e] transition-colors duration-200"
-      >
+      <Link href={href} className="text-[#1a3d2b] hover:text-[#c8961e] transition-colors duration-200">
         {children}
       </Link>
     </li>
