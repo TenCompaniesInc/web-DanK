@@ -1,119 +1,90 @@
 "use client";
 
-import { useState } from "react";
+import { X, Plus, Minus, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
-import { X, Plus, Minus } from "lucide-react";
 import Link from "next/link";
 
-export default function CartDrawer({ open, onClose, onRequestQuote }: { open: boolean; onClose: () => void; onRequestQuote?: () => void }) {
-  const { cart, removeFromCart, updateQuantity, totalPrice } = useCartStore();
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [editValue, setEditValue] = useState("");
+interface CartDrawerProps {
+  open: boolean;
+  onClose: () => void;
+}
 
-  const startEdit = (id: number, currentQty: number) => {
-    setEditingId(id);
-    setEditValue(String(currentQty));
-  };
-
-  const commitEdit = (id: number) => {
-    const n = parseInt(editValue);
-    updateQuantity(id, isNaN(n) || n < 1 ? 1 : n);
-    setEditingId(null);
-  };
+export default function CartDrawer({ open, onClose }: CartDrawerProps) {
+  const { cart, removeFromCart, updateQuantity, totalPrice, clearCart } = useCartStore();
 
   return (
     <>
+      {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/30 z-40 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/40 z-[54] backdrop-blur-sm"
           onClick={onClose}
         />
       )}
 
+      {/* Drawer — full width on mobile, 380px on sm+ */}
       <div
-        className="fixed top-0 right-0 bottom-0 w-full sm:w-[380px] z-50 flex flex-col transition-transform duration-300"
+        className="fixed top-0 right-0 bottom-0 z-[55] flex flex-col transition-transform duration-300 ease-in-out"
         style={{
+          width: "min(380px, 100vw)",
           background: "white",
           borderLeft: "1px solid #d8e6dd",
-          boxShadow: "-8px 0 32px rgba(0,0,0,0.08)",
+          boxShadow: "-8px 0 40px rgba(0,0,0,0.12)",
           transform: open ? "translateX(0)" : "translateX(100%)",
         }}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#d8e6dd]">
-          <h2 className="text-lg font-bold text-[#141414]">
-            Cart ({cart.length} {cart.length === 1 ? "item" : "items"})
-          </h2>
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#d8e6dd] flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <ShoppingCart size={18} className="text-[#1a3d2b]" />
+            <h2 className="text-base font-bold text-[#141414]">
+              Cart ({cart.reduce((s, i) => s + i.qty, 0)} items)
+            </h2>
+          </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg border border-[#d8e6dd] flex items-center justify-center text-zinc-400 hover:text-[#141414] hover:border-zinc-400 transition"
+            className="w-8 h-8 rounded-lg border border-[#d8e6dd] flex items-center justify-center text-zinc-400 hover:text-[#141414] transition active:bg-zinc-50"
           >
-            <X size={15} />
+            <X size={16} />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto px-5 py-4">
           {cart.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center">
-              <p className="text-5xl mb-4">🛒</p>
-              <p className="font-semibold text-zinc-400">Your cart is empty</p>
-              <p className="text-xs text-zinc-300 mt-1">Add some rice to get started</p>
+            <div className="flex flex-col items-center justify-center h-full text-center py-16">
+              <div className="text-5xl mb-4">🛒</div>
+              <p className="font-semibold text-zinc-400 mb-1">Your cart is empty</p>
+              <p className="text-xs text-zinc-300">Add some rice to get started</p>
+              <button onClick={onClose} className="mt-6 px-6 py-2.5 bg-[#1a3d2b] text-white text-sm font-semibold rounded-xl active:opacity-90">
+                Browse Products
+              </button>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {cart.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex gap-3 p-3 rounded-xl border border-[#d8e6dd] bg-[#f9fbf9]"
-                >
+                <div key={`${item.id}-${item.weight}`} className="flex gap-3 p-3 rounded-xl border border-[#d8e6dd] bg-[#f9fbf9]">
                   <img
                     src={item.image + "?w=120"}
                     alt={item.name}
-                    className="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-[#d8e6dd]"
+                    className="w-14 h-14 rounded-lg object-cover flex-shrink-0 border border-[#d8e6dd]"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm text-[#141414] leading-tight">{item.name}</p>
+                    <p className="font-semibold text-sm text-[#141414] leading-tight truncate">{item.name}</p>
                     <p className="text-xs text-zinc-400 mt-0.5">{item.weight} bag</p>
-                    <p className="text-[11px] text-zinc-400 mt-0.5">UGX {item.price.toLocaleString()} / {item.weight}</p>
-                    <p className="font-bold text-[#1a3d2b] mt-1">
-                      UGX {(item.price * item.qty).toLocaleString()}
-                    </p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <button
-                        onClick={() => updateQuantity(item.id, item.qty - 1)}
-                        className="w-7 h-7 rounded-lg border border-[#d8e6dd] bg-white flex items-center justify-center text-[#1a3d2b] font-bold hover:bg-[#e8f5ed] transition"
-                      >
-                        <Minus size={12} />
+                    <p className="text-sm font-bold text-[#1a3d2b] mt-1">UGX {(item.price * item.qty).toLocaleString()}</p>
+                  </div>
+                  <div className="flex flex-col items-end justify-between flex-shrink-0 gap-2">
+                    <button onClick={() => removeFromCart(item.id)} className="text-zinc-300 hover:text-red-400 transition p-1">
+                      <X size={14} />
+                    </button>
+                    <div className="flex items-center gap-1.5 border border-[#d8e6dd] rounded-lg px-2 py-1 bg-white">
+                      <button onClick={() => updateQuantity(item.id, Math.max(1, item.qty - 1))} className="w-5 h-5 flex items-center justify-center text-[#1a3d2b] active:bg-[#e8f5ed] rounded">
+                        <Minus size={11} />
                       </button>
-                      {editingId === item.id ? (
-                        <input
-                          type="text"
-                          inputMode="numeric"
-                          autoFocus
-                          value={editValue}
-                          onChange={(e) => { const v = e.target.value.replace(/[^0-9]/g, ""); setEditValue(v); const n = parseInt(v); if (!isNaN(n) && n >= 1) updateQuantity(item.id, n); }}
-                          onBlur={() => commitEdit(item.id)}
-                          onKeyDown={(e) => { if (e.key === "Enter") commitEdit(item.id); }}
-                          className="w-12 text-center text-sm font-bold text-[#141414] border border-[#1a3d2b] rounded-md focus:outline-none"
-                        />
-                      ) : (
-                        <button
-                          onClick={() => startEdit(item.id, item.qty)}
-                          className="text-sm font-bold text-[#141414] w-8 text-center hover:bg-[#e8f5ed] rounded-md py-0.5 transition"
-                        >
-                          {item.qty}
-                        </button>
-                      )}
-                      <button
-                        onClick={() => updateQuantity(item.id, item.qty + 1)}
-                        className="w-7 h-7 rounded-lg border border-[#d8e6dd] bg-white flex items-center justify-center text-[#1a3d2b] font-bold hover:bg-[#e8f5ed] transition"
-                      >
-                        <Plus size={12} />
-                      </button>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="ml-auto text-zinc-300 hover:text-red-400 transition"
-                      >
-                        <X size={14} />
+                      <span className="w-5 text-center text-xs font-bold text-[#141414]">{item.qty}</span>
+                      <button onClick={() => updateQuantity(item.id, item.qty + 1)} className="w-5 h-5 flex items-center justify-center text-[#1a3d2b] active:bg-[#e8f5ed] rounded">
+                        <Plus size={11} />
                       </button>
                     </div>
                   </div>
@@ -123,28 +94,26 @@ export default function CartDrawer({ open, onClose, onRequestQuote }: { open: bo
           )}
         </div>
 
+        {/* Footer */}
         {cart.length > 0 && (
-          <div className="px-6 py-5 border-t border-[#d8e6dd]">
+          <div className="px-5 py-4 border-t border-[#d8e6dd] flex-shrink-0 bg-white">
             <div className="flex justify-between items-center mb-4">
-              <span className="font-semibold text-[#141414]">Total</span>
-              <span className="text-2xl font-bold text-[#1a3d2b]">
-                UGX {totalPrice().toLocaleString()}
-              </span>
+              <p className="text-sm text-zinc-500">Total</p>
+              <p className="text-xl font-bold text-[#1a3d2b]">UGX {totalPrice().toLocaleString()}</p>
             </div>
             <Link
               href="/order"
               onClick={onClose}
-              className="block w-full text-center bg-[#c8961e] text-[#0d2418] font-bold py-3.5 rounded-xl text-sm hover:opacity-90 transition mb-2"
+              className="block w-full py-3.5 text-center bg-[#1a3d2b] text-white text-sm font-bold rounded-xl hover:opacity-90 transition active:scale-[0.98]"
             >
-              Pay with Mobile Money →
+              Proceed to Order
             </Link>
-            <Link
-              href="/order#quotation"
-              onClick={onClose}
-              className="block w-full text-center border-2 border-[#1a3d2b] text-[#1a3d2b] font-semibold py-3 rounded-xl text-sm hover:bg-[#f5f8f6] transition"
+            <button
+              onClick={clearCart}
+              className="w-full mt-2 py-2.5 text-sm font-medium text-zinc-400 border border-[#d8e6dd] rounded-xl hover:bg-zinc-50 transition active:bg-zinc-100"
             >
-              Get Quotation
-            </Link>
+              Clear Cart
+            </button>
           </div>
         )}
       </div>

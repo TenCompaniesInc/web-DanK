@@ -11,7 +11,7 @@ export function PatternText({
       data-shadow={text}
       className={cn(
         'relative inline-block font-bold leading-none tracking-tighter select-none',
-        'text-[clamp(80px,16vw,180px)]',
+        'text-[clamp(48px,14vw,180px)]',
         'text-white',
         '[text-shadow:0.02em_0.02em_0_rgba(255,255,255,0.15)]',
         'after:absolute after:inset-0 after:content-[attr(data-shadow)]',

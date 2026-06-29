@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft, MessageCircle, ChevronRight } from "lucide-react";
 
 type StaffMember = {
   _id: string;
@@ -25,6 +24,7 @@ const fallback: StaffMember[] = [
 ];
 
 export default function TeamPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [team, setTeam] = useState<StaffMember[]>(fallback);
   const [loading, setLoading] = useState(true);
 
@@ -42,36 +42,52 @@ export default function TeamPage() {
 
   return (
     <main className="min-h-screen bg-white">
+      <style>{`@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } @keyframes heroIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
+      <nav className="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain" />
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain w-10 h-10 sm:w-11 sm:h-11" />
             <div className="leading-tight">
-              <p className="text-xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
-              <p className="text-[10px] font-bold tracking-[2.5px] uppercase text-[#c8961e]">Origin of Quality</p>
+              <p className="text-xl sm:text-2xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
+              <p className="text-[9px] sm:text-[10px] font-bold tracking-[2px] uppercase text-[#c8961e]">Origin of Quality</p>
             </div>
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/about#staff" className="flex items-center gap-2 text-sm font-medium text-zinc-500 hover:text-[#1a3d2b] transition">
-              <ArrowLeft size={15} /> Back to About
-            </Link>
+          <div className="hidden md:flex items-center gap-4">
+            <Link href="/about" className="flex items-center gap-1.5 text-sm font-medium text-zinc-500 hover:text-[#1a3d2b] transition"><ArrowLeft size={15} /> About</Link>
             <Link href="/order" className="bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Order Now</Link>
           </div>
+          <button onClick={() => setMobileMenuOpen((v) => !v)} className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-zinc-50 transition" aria-label="Menu">
+            <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-[#d8e6dd] shadow-xl z-[70]" onClick={(e) => e.stopPropagation()}>
+            <div className="px-5 py-2 flex flex-col">
+              {[["Home", "/"], ["Products", "/products"], ["Order", "/order"], ["About", "/about"], ["Contact", "/contact"], ["Team", "/team"]].map(([label, href]) => (
+                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="text-[#1a3d2b] font-semibold text-base py-3.5 border-b border-[#f0f7f2] last:border-0 flex items-center justify-between active:text-[#c8961e]">
+                  {label} <ChevronRight size={16} className="text-zinc-300" />
+                </Link>
+              ))}
+              <Link href="/order" onClick={() => setMobileMenuOpen(false)} className="my-3 w-full text-center bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-3.5 rounded-xl">Order Now</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* HERO */}
       <section className="pt-16 min-h-[36vh] flex items-end relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0d2418 0%,#1a3d2b 60%,#2d6a4f 100%)" }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 70% 50%,#c8961e 0%,transparent 60%)" }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 pb-10 sm:pb-14 pt-16 sm:pt-20">
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xs font-bold tracking-[3px] uppercase text-[#c8961e] mb-3">The People</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-none mb-4">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-10 pb-8 sm:pb-14 pt-14 sm:pt-20">
+          <p className="text-xs font-bold tracking-[3px] uppercase text-[#c8961e] mb-3" style={{ animation: "heroIn 0.5s ease-out 0.1s both" }}>The People</p>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-none mb-4" style={{ animation: "heroIn 0.6s ease-out 0.2s both" }}>
             Meet the Full Team
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-white/60 text-base max-w-lg">
+          </h1>
+          <p className="text-white/60 text-sm sm:text-base max-w-lg" style={{ animation: "heroIn 0.6s ease-out 0.35s both" }}>
             The people behind every sack of rice we deliver — from Kisenyi Road to your kitchen.
-          </motion.p>
+          </p>
         </div>
       </section>
 
@@ -93,9 +109,8 @@ export default function TeamPage() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {team.map((member, i) => (
-                <motion.div key={member._id} initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-                  className="bg-white rounded-2xl overflow-hidden border-2 border-[rgba(200,230,210,0.7)] hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
-                  <div className="h-72 bg-[#d4e8d8] overflow-hidden">
+                <div key={member._id} className="bg-white rounded-2xl overflow-hidden border-2 border-[rgba(200,230,210,0.7)] hover:-translate-y-1 hover:shadow-xl transition-all duration-200" style={{ animation: `fadeInUp 0.5s ease-out ${i * 0.08}s both` }}>
+                  <div className="h-56 sm:h-72 bg-[#d4e8d8] overflow-hidden">
                     <img src={member.image || "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"} alt={member.name}
                       className="w-full h-full object-cover object-top" />
                   </div>
@@ -107,7 +122,7 @@ export default function TeamPage() {
                     )}
 
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
@@ -127,19 +142,39 @@ export default function TeamPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#141414] py-10">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between text-xs text-zinc-600">
-          <p>2026 DAN K CHEAP STORES LTD</p>
-          <div className="flex items-center gap-4">
-            <a href="https://www.tiktok.com/@dakcheapstores" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition" title="TikTok">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-            </a>
+      <footer className="bg-[#141414] py-10 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <Image src="/emblem.png" alt="DAN K" width={36} height={36} className="object-contain" />
+                <div><p className="font-bold text-white text-sm">DAN K</p><p className="text-[#c8961e] text-[10px] tracking-widest uppercase">Origin of Quality</p></div>
+              </div>
+              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Jinja, Luweero & Katooke.</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-3">Quick Links</p>
+              <div className="flex flex-col gap-2">
+                {["Products", "About", "Order", "Contact"].map((l) => (<Link key={l} href={"/" + l.toLowerCase()} className="text-zinc-500 text-sm hover:text-[#c8961e] transition">{l}</Link>))}
+              </div>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-3">Contact</p>
+              <div className="text-zinc-500 text-sm leading-loose">
+                <p>Covenant Building, Kisenyi, Kampala</p>
+                <p>0700 212 147</p>
+                <p>Sun–Fri · 7am – 7:30pm (Closed Sat)</p>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-zinc-800 pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-600">
+            <p>2026 DAN K CHEAP STORES LTD</p>
             <p>Built by <span className="text-zinc-500">Ten Developers</span></p>
           </div>
         </div>
       </footer>
 
-      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white">
+      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white">
         <MessageCircle size={22} />
       </a>
     </main>

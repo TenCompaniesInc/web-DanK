@@ -1,19 +1,16 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import NavHeader from "@/components/ui/nav-header";
-import { ArrowRight, MapPin, MessageCircle } from "lucide-react";
+import { ArrowRight, MapPin, MessageCircle, ChevronRight } from "lucide-react";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay, ease: "easeOut" }} className={className}>
+    <div className={className} style={{ animation: `fadeInUp 0.55s ease-out ${delay}s both` }}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -49,6 +46,7 @@ const branches = [
 ];
 
 export default function AboutPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [liveTeam, setLiveTeam] = useState(team);
 
   useEffect(() => {
@@ -73,30 +71,50 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white">
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain" />
+      <style>{`@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes heroIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}`}</style>
+      <nav className="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain w-10 h-10 sm:w-11 sm:h-11" />
             <div className="leading-tight">
-              <p className="text-xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
-              <p className="text-[10px] font-bold tracking-[2.5px] uppercase text-[#c8961e]">Origin of Quality</p>
+              <p className="text-xl sm:text-2xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
+              <p className="text-[9px] sm:text-[10px] font-bold tracking-[2px] uppercase text-[#c8961e]">Origin of Quality</p>
             </div>
           </Link>
           <div className="hidden md:block"><NavHeader /></div>
-          <Link href="/order" className="bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Order Now</Link>
+          <div className="flex items-center gap-2">
+            <Link href="/order" className="hidden sm:flex bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Order Now</Link>
+            <button onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(!mobileMenuOpen); }} className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-zinc-50 transition" aria-label="Menu">
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            </button>
+          </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-[#d8e6dd] shadow-xl z-[70]" onClick={(e) => e.stopPropagation()}>
+            <div className="px-5 py-2 flex flex-col">
+              {[["Home","/"],["Products","/products"],["Order","/order"],["About","/about"],["Contact","/contact"],["Team","/team"]].map(([label,href])=>(
+                <Link key={label} href={href} onClick={()=>setMobileMenuOpen(false)} className="text-[#1a3d2b] font-semibold text-base py-3.5 border-b border-[#f0f7f2] last:border-0 flex items-center justify-between active:text-[#c8961e]">
+                  {label} <ChevronRight size={16} className="text-zinc-300" />
+                </Link>
+              ))}
+              <Link href="/order" onClick={()=>setMobileMenuOpen(false)} className="my-3 w-full text-center bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-3.5 rounded-xl">Order Now</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       <section className="pt-16 min-h-[50vh] flex items-end justify-start relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0d2418 0%, #1a3d2b 60%, #2d6a4f 100%)" }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, #c8961e 0%, transparent 60%)" }} />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 pb-10 sm:pb-16 pt-16 sm:pt-20">
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xs font-bold tracking-[3px] uppercase text-[#c8961e] mb-3">Who We Are</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.7 }} className="text-4xl sm:text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-6">
+          <p className="text-xs font-bold tracking-[3px] uppercase text-[#c8961e] mb-3" style={{ animation: "heroIn 0.5s ease-out 0.1s both" }}>Who We Are</p>
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-6" style={{ animation: "heroIn 0.6s ease-out 0.2s both" }}>
             Built to Serve<br /><span className="text-[#c8961e]">Uganda.</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} className="text-white/60 text-lg max-w-xl leading-relaxed">
+          </h1>
+          <p className="text-white/60 text-base sm:text-lg max-w-xl leading-relaxed" style={{ animation: "heroIn 0.6s ease-out 0.35s both" }}>
             DAN K CHEAP STORES LTD started with one promise — clean rice, honest prices, and a store that actually cares about the people it serves.
-          </motion.p>
+          </p>
         </div>
       </section>
 
@@ -283,7 +301,7 @@ export default function AboutPage() {
         </div>
       </footer>
 
-      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><MessageCircle size={22} /></a>
+      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><MessageCircle size={22} /></a>
     </main>
   );
 }

@@ -1,21 +1,18 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import NavHeader from "@/components/ui/nav-header";
-import { MapPin, Phone, Clock, Mail, Send, CheckCircle, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Clock, Mail, Send, CheckCircle, MessageCircle, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay, ease: "easeOut" }} className={className}>
+    <div className={className} style={{ animation: `fadeInUp 0.55s ease-out ${delay}s both` }}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -35,6 +32,7 @@ const branches = [
 ];
 
 export default function ContactPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -51,31 +49,51 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-white">
+      <style>{`@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } @keyframes heroIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain" />
+      <nav className="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain w-10 h-10 sm:w-11 sm:h-11" />
             <div className="leading-tight">
-              <p className="text-xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
-              <p className="text-[10px] font-bold tracking-[2.5px] uppercase text-[#c8961e]">Origin of Quality</p>
+              <p className="text-xl sm:text-2xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
+              <p className="text-[9px] sm:text-[10px] font-bold tracking-[2px] uppercase text-[#c8961e]">Origin of Quality</p>
             </div>
           </Link>
           <div className="hidden md:block"><NavHeader /></div>
-          <Link href="/order" className="bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Order Now</Link>
+          <div className="flex items-center gap-2">
+            <Link href="/order" className="hidden sm:flex bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Order Now</Link>
+            <button onClick={() => setMobileMenuOpen((v) => !v)} className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-zinc-50 transition" aria-label="Menu">
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            </button>
+          </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-[#d8e6dd] shadow-xl z-[70]" onClick={(e) => e.stopPropagation()}>
+            <div className="px-5 py-2 flex flex-col">
+              {[["Home", "/"], ["Products", "/products"], ["Order", "/order"], ["About", "/about"], ["Contact", "/contact"], ["Team", "/team"]].map(([label, href]) => (
+                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="text-[#1a3d2b] font-semibold text-base py-3.5 border-b border-[#f0f7f2] last:border-0 flex items-center justify-between active:text-[#c8961e]">
+                  {label} <ChevronRight size={16} className="text-zinc-300" />
+                </Link>
+              ))}
+              <Link href="/order" onClick={() => setMobileMenuOpen(false)} className="my-3 w-full text-center bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-3.5 rounded-xl">Order Now</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
-      <section className="pt-16 min-h-[40vh] flex items-end justify-start relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0d2418 0%, #1a3d2b 60%, #2d6a4f 100%)" }}>
+      <section className="pt-16 min-h-[40vh] flex items-end justify-start relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0d2418 0%,#1a3d2b 60%,#2d6a4f 100%)" }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #c8961e 0%, transparent 60%)" }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 pb-14 pt-20">
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xs font-bold tracking-[3px] uppercase text-[#c8961e] mb-3">Get in Touch</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.7 }} className="text-5xl md:text-6xl font-bold text-white tracking-tight leading-none mb-4">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-10 pb-10 sm:pb-14 pt-16 sm:pt-20">
+          <p className="text-xs font-bold tracking-[3px] uppercase text-[#c8961e] mb-3" style={{ animation: "heroIn 0.5s ease-out 0.1s both" }}>Get in Touch</p>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-none mb-4" style={{ animation: "heroIn 0.6s ease-out 0.2s both" }}>
             We are Right Here<br /><span className="text-[#c8961e]">on Kisenyi Road.</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} className="text-white/60 text-base max-w-lg leading-relaxed">
+          </h1>
+          <p className="text-white/60 text-sm sm:text-base max-w-lg leading-relaxed" style={{ animation: "heroIn 0.6s ease-out 0.35s both" }}>
             Walk in, call us, WhatsApp, or send a message below. We respond fast — usually within minutes.
-          </motion.p>
+          </p>
         </div>
       </section>
 
@@ -118,12 +136,12 @@ export default function ContactPage() {
               <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3">Send a Message</p>
               <h2 className="text-3xl font-bold tracking-tight text-[#141414] mb-8">How can we help you?</h2>
               {sent ? (
-                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center justify-center text-center py-16 px-8 rounded-2xl border-2 border-[rgba(200,230,210,0.7)] bg-[#f5f8f6]">
+                <div style={{ animation: "fadeInUp 0.4s ease-out both" }} className="flex flex-col items-center justify-center text-center py-16 px-8 rounded-2xl border-2 border-[rgba(200,230,210,0.7)] bg-[#f5f8f6]">
                   <CheckCircle size={52} className="text-[#1a3d2b] mb-4" />
                   <h3 className="text-xl font-bold text-[#1a3d2b] mb-2">Message Received!</h3>
                   <p className="text-zinc-400 text-sm mb-6 max-w-xs leading-relaxed">Thanks {form.name}. We will get back to you on <strong className="text-[#1a3d2b]">{form.phone}</strong> within minutes.</p>
                   <button onClick={() => { setSent(false); setForm({ name: "", phone: "", email: "", subject: "", message: "" }); }} className="text-sm font-semibold text-[#1a3d2b] underline">Send another message</button>
-                </motion.div>
+                </div>
               ) : (
                 <div className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -272,7 +290,7 @@ export default function ContactPage() {
         </div>
       </footer>
 
-      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><MessageCircle size={22} /></a>
+      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><MessageCircle size={22} /></a>
     </main>
   );
 }

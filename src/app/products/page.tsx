@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useCartStore } from "@/store/cartStore";
-import { ShoppingCart, X, Plus, Minus, MessageCircle } from "lucide-react";
+import { ShoppingCart, X, Plus, Minus, MessageCircle, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
@@ -64,10 +64,10 @@ function CartDrawer({ open, onClose, onRequestQuote }: { open: boolean; onClose:
 
   return (
     <>
-      {open && <div className="fixed inset-0 bg-black/30 z-40 backdrop-blur-sm" onClick={onClose} />}
+      {open && <div className="fixed inset-0 bg-black/30 z-[54] backdrop-blur-sm" onClick={onClose} />}
       <div
-        className="fixed top-0 right-0 bottom-0 w-[380px] z-50 flex flex-col transition-transform duration-300"
-        style={{ background: "white", borderLeft: "1px solid #d8e6dd", boxShadow: "-8px 0 32px rgba(0,0,0,0.08)", transform: open ? "translateX(0)" : "translateX(100%)" }}
+        className="fixed top-0 right-0 bottom-0 z-[55] flex flex-col transition-transform duration-300"
+        style={{ width: "min(380px, 100vw)", background: "white", borderLeft: "1px solid #d8e6dd", boxShadow: "-8px 0 32px rgba(0,0,0,0.08)", transform: open ? "translateX(0)" : "translateX(100%)" }}
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#d8e6dd]">
           <h2 className="text-lg font-bold text-[#141414]">Cart ({cart.length} {cart.length === 1 ? "item" : "items"})</h2>
@@ -237,6 +237,7 @@ function QuotationModal({ open, onClose, cartTotal }: { open: boolean; onClose: 
 
 // ── Main Page ────────────────────────────────────────────────────────────
 export default function ProductsPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -296,39 +297,60 @@ export default function ProductsPage() {
     <main className="min-h-screen bg-zinc-50">
 
       {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
+      <nav onClick={() => {}} className="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/emblem.png" alt="DAN K" width={52} height={52} className="object-contain" />
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain w-10 h-10 sm:w-11 sm:h-11" />
             <div className="leading-tight">
-              <p className="text-2xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
-              <p className="text-[10px] font-bold tracking-[2.5px] uppercase text-[#c8961e]">Origin of Quality</p>
+              <p className="text-xl sm:text-2xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
+              <p className="text-[9px] sm:text-[10px] font-bold tracking-[2px] uppercase text-[#c8961e]">Origin of Quality</p>
             </div>
           </Link>
           <div className="hidden md:block"><NavHeader /></div>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setIsCartOpen(true)} className="relative flex items-center gap-2 border border-[#d8e6dd] rounded-lg px-3 py-2 text-sm font-medium hover:bg-zinc-50 transition">
+          <div className="flex items-center gap-2">
+            <button onClick={() => setIsCartOpen(true)} className="relative flex items-center gap-1.5 border border-[#d8e6dd] rounded-lg px-2.5 py-2 text-sm font-medium hover:bg-zinc-50 transition active:bg-zinc-100">
               <ShoppingCart size={16} />
-              Cart
+              <span className="hidden sm:inline">Cart</span>
               {totalItems() > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[#c8961e] text-[#1a3d2b] text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">{totalItems()}</span>
               )}
             </button>
-            <button onClick={() => setQuoteOpen(true)} className="hidden sm:block border-2 border-[#1a3d2b] text-[#1a3d2b] text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#f5f8f6] transition">Get Quotation</button>
-            <Link href="/order" className="bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Order Now</Link>
+            <button onClick={() => setQuoteOpen(true)} className="hidden sm:block border-2 border-[#1a3d2b] text-[#1a3d2b] text-sm font-semibold px-3 py-2 rounded-lg hover:bg-[#f5f8f6] transition">Quotation</button>
+            <Link href="/order" className="hidden sm:flex bg-[#1a3d2b] text-white text-sm font-semibold px-3 py-2 rounded-lg hover:opacity-90 transition">Order Now</Link>
+            <button
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              className="md:hidden flex flex-col gap-1.5 p-3 rounded-lg hover:bg-zinc-50 transition min-w-[44px] min-h-[44px] items-center justify-center"
+              aria-label="Menu"
+            >
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            </button>
           </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-[#d8e6dd] shadow-xl z-[70]" onClick={(e) => e.stopPropagation()}>
+            <div className="px-5 py-2 flex flex-col">
+              {[["Home", "/"], ["Products", "/products"], ["Order", "/order"], ["About", "/about"], ["Contact", "/contact"], ["Team", "/team"]].map(([label, href]) => (
+                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="text-[#1a3d2b] font-semibold text-base py-3.5 border-b border-[#f0f7f2] last:border-0 flex items-center justify-between active:text-[#c8961e]">
+                  {label} <ChevronRight size={16} className="text-zinc-300" />
+                </Link>
+              ))}
+              <Link href="/order" onClick={() => setMobileMenuOpen(false)} className="my-3 w-full text-center bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-3.5 rounded-xl">Order Now</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* PAGE HEADER */}
-      <div className="pt-28 pb-8 px-6 max-w-7xl mx-auto">
+      <div className="pt-28 pb-6 px-4 sm:px-6 max-w-7xl mx-auto">
         <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-2">Our Stock</p>
-        <h1 className="text-5xl font-bold tracking-tight text-[#141414] mb-3">Rice Products</h1>
+        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#141414] mb-2">Rice Products</h1>
         <p className="text-zinc-400 text-base max-w-xl">Click any product to choose your weight and quantity.</p>
       </div>
 
       {/* FILTERS */}
-      <div className="px-6 max-w-7xl mx-auto mb-8">
+      <div className="px-4 sm:px-6 max-w-7xl mx-auto mb-6">
         <div className="flex gap-2 flex-wrap">
           {filters.map((f) => (
             <button key={f} onClick={() => setActiveFilter(f)} className="px-5 py-2 rounded-full text-sm font-medium border transition-all"
@@ -340,9 +362,9 @@ export default function ProductsPage() {
       </div>
 
       {/* GRID */}
-      <div className="px-6 max-w-7xl mx-auto pb-20">
+      <div className="px-4 sm:px-6 max-w-7xl mx-auto pb-20">
         {loading ? (
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
             {[...Array(7)].map((_, i) => (
               <div key={i} className="bg-white rounded-2xl border border-zinc-100 overflow-hidden animate-pulse">
                 <div className="h-48 bg-zinc-200" />
@@ -351,7 +373,7 @@ export default function ProductsPage() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
             {products.map((product) => (
               <div key={product._id} onClick={() => product.inStock && openModal(product)} className="overflow-hidden group border-2 border-[rgba(200,230,210,0.6)] bg-white rounded-2xl hover:shadow-xl transition-all duration-200 cursor-pointer">
                 <div className="relative h-48 bg-[#e6f0e8]">
@@ -364,13 +386,13 @@ export default function ProductsPage() {
                   )}
                 </div>
                 <div className="p-5">
-                  <h3 className="font-semibold text-base text-[#141414] mb-1 leading-tight">{product.name}</h3>
-                  <p className="text-xs text-zinc-400 mb-3">{product.wholesale}</p>
+                  <h3 className="font-semibold text-xs sm:text-base text-[#141414] mb-1 leading-tight">{product.name}</h3>
+                  <p className="text-xs text-zinc-400 mb-2 line-clamp-1">{product.wholesale}</p>
                   <div className="flex gap-1 flex-wrap mb-4">
                     {["25kg", "50kg", "100kg", "200kg+"].map((w) => (<span key={w} className="text-[10px] px-2 py-0.5 rounded-full border border-[#d8e6dd] text-zinc-400">{w}</span>))}
                     <span className="text-[10px] px-2 py-0.5 rounded-full border border-[#d8e6dd] text-zinc-300">+2</span>
                   </div>
-                  <p className="text-2xl font-bold text-[#1a3d2b]">UGX {product.price.toLocaleString()}<span className="text-sm font-normal text-zinc-400 ml-1">{product.unit}</span></p>
+                  <p className="text-base sm:text-xl font-bold text-[#1a3d2b]">UGX {product.price.toLocaleString()}<span className="text-xs font-normal text-zinc-400">{product.unit}</span></p>
                 </div>
               </div>
             ))}
@@ -381,7 +403,7 @@ export default function ProductsPage() {
       {/* FOOTER */}
       <footer className="bg-[#141414] py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-10 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <Image src="/emblem.png" alt="DAN K" width={36} height={36} className="object-contain" />
@@ -408,7 +430,7 @@ export default function ProductsPage() {
             </div>
           </div>
           <div className="border-t border-zinc-800 pt-6 flex items-center justify-between text-xs text-zinc-600">
-            <p>2025 DAN K CHEAP STORES LTD</p>
+            <p>2026 DAN K CHEAP STORES LTD</p>
             <p>Built by <span className="text-zinc-500">Ten Developers</span></p>
           </div>
         </div>
@@ -416,7 +438,7 @@ export default function ProductsPage() {
 
       {/* PRODUCT MODAL */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={closeModal}>
+        <div className="fixed inset-0 z-[55] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={closeModal}>
           <div className="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-md shadow-2xl border-2 border-[rgba(200,230,210,0.6)] max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="relative h-52 bg-[#e6f0e8]">
               <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-full object-cover" />

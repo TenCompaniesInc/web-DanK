@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { useCartStore } from "@/store/cartStore";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Phone, MapPin, User, Package, MessageCircle } from "lucide-react";
+import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Phone, MapPin, User, Package, MessageCircle, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
@@ -23,6 +22,7 @@ type Step = "cart" | "details" | "payment" | "confirm";
 type PayNetwork = "mtn" | "airtel" | "card" | null;
 
 export default function OrderPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cart, removeFromCart, updateQuantity, totalPrice, clearCart } = useCartStore();
   const [step, setStep] = useState<Step>("cart");
   const [payNetwork, setPayNetwork] = useState<PayNetwork>(null);
@@ -104,25 +104,49 @@ export default function OrderPage() {
 
   return (
     <main className="min-h-screen bg-[#f5f8f6]">
+      <style>{`@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-xl border-b border-[#d8e6dd]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain" />
+            <Image src="/emblem.png" alt="DAN K" width={44} height={44} className="object-contain w-10 h-10 sm:w-11 sm:h-11" />
             <div className="leading-tight">
-              <p className="text-xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
+              <p className="text-xl sm:text-2xl font-bold tracking-tight text-[#1a3d2b]">DAN K</p>
               <p className="text-[10px] font-bold tracking-[2.5px] uppercase text-[#c8961e]">Origin of Quality</p>
             </div>
           </Link>
           <div className="hidden md:block"><NavHeader /></div>
-          <Link href="/products" className="bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Shop Rice</Link>
+          <div className="flex items-center gap-2">
+            <Link href="/products" className="hidden sm:flex bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition">Shop Rice</Link>
+            <button
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-zinc-50 transition"
+              aria-label="Menu"
+            >
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-5 h-0.5 bg-[#1a3d2b] transition-all duration-200 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            </button>
+          </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-[#d8e6dd] shadow-xl z-[70]" onClick={(e) => e.stopPropagation()}>
+            <div className="px-5 py-2 flex flex-col">
+              {[["Home", "/"], ["Products", "/products"], ["Order", "/order"], ["About", "/about"], ["Contact", "/contact"], ["Team", "/team"]].map(([label, href]) => (
+                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="text-[#1a3d2b] font-semibold text-base py-3.5 border-b border-[#f0f7f2] last:border-0 flex items-center justify-between active:text-[#c8961e]">
+                  {label} <ChevronRight size={16} className="text-zinc-300" />
+                </Link>
+              ))}
+              <Link href="/order" onClick={() => setMobileMenuOpen(false)} className="my-3 w-full text-center bg-[#1a3d2b] text-white text-sm font-semibold px-4 py-3.5 rounded-xl">Order Now</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
-      <div className="max-w-6xl mx-auto px-6 pt-28 pb-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-16">
         <div className="mb-10">
           <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-2">Buy & Quote</p>
-          <h1 className="text-4xl font-bold tracking-tight text-[#141414]">Order & Get a Quotation</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#141414]">Order & Get a Quotation</h1>
           <p className="text-zinc-400 mt-2 text-sm">Complete your order below or request a bulk quotation.</p>
         </div>
 
@@ -143,7 +167,7 @@ export default function OrderPage() {
             )}
 
             {step === "cart" && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div style={{ animation: "fadeInUp 0.45s ease-out both" }}>
                 <Card className="border-2 border-[rgba(200,230,210,0.7)] bg-white/70 backdrop-blur-md">
                   <CardContent className="p-6">
                     <h2 className="text-lg font-bold text-[#1a3d2b] mb-4 flex items-center gap-2"><ShoppingCart size={18} /> Your Cart</h2>
@@ -188,11 +212,11 @@ export default function OrderPage() {
                     )}
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             )}
 
             {step === "details" && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div style={{ animation: "fadeInUp 0.45s ease-out both" }}>
                 <Card className="border-2 border-[rgba(200,230,210,0.7)] bg-white/70 backdrop-blur-md">
                   <CardContent className="p-6 space-y-4">
                     <h2 className="text-lg font-bold text-[#1a3d2b] mb-2 flex items-center gap-2"><User size={18} /> Your Information</h2>
@@ -250,11 +274,11 @@ export default function OrderPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             )}
 
             {step === "payment" && !done && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div style={{ animation: "fadeInUp 0.45s ease-out both" }}>
                 <Card className="border-2 border-[rgba(200,230,210,0.7)] bg-white/70 backdrop-blur-md">
                   <CardContent className="p-6 space-y-5">
                     <h2 className="text-lg font-bold text-[#1a3d2b] flex items-center gap-2"><Phone size={18} /> Pay with Mobile Money</h2>
@@ -327,11 +351,11 @@ export default function OrderPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             )}
 
             {done && (
-              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+              <div style={{ animation: "fadeInUp 0.45s ease-out both" }}>
                 <Card className="border-2 border-[rgba(200,230,210,0.7)] bg-white/70 backdrop-blur-md">
                   <CardContent className="p-10 text-center">
                     <div className="text-6xl mb-4">✅</div>
@@ -349,7 +373,7 @@ export default function OrderPage() {
                     <Link href="/" className="inline-block bg-[#1a3d2b] text-white px-8 py-3 rounded-full font-semibold text-sm hover:opacity-90 transition">Back to Home</Link>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             )}
 
             {/* QUOTATION CARD - inline in left column */}
@@ -465,10 +489,10 @@ export default function OrderPage() {
         </div>
       </footer>
 
-      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><MessageCircle size={22} /></a>
+      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><MessageCircle size={22} /></a>
 
       {iframeUrl && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+        <div className="fixed inset-0 z-[55] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
           <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl border-2 border-[rgba(200,230,210,0.6)] overflow-hidden" style={{ height: "85vh" }}>
             <div className="flex items-center justify-between px-5 py-3 border-b border-[#d8e6dd]">
               <div className="flex items-center gap-3">
