@@ -303,20 +303,20 @@ export default function OrderPage() {
                     <div className="grid grid-cols-2 gap-3">
                       <button onClick={() => { setPayNetwork("mtn"); setMomoError(""); }} className="p-4 rounded-xl border-2 text-center transition-all" style={{ borderColor: payNetwork === "mtn" ? "#FFCC00" : "#d8e6dd", background: payNetwork === "mtn" ? "#fffbe6" : "white" }}>
                         <div className="flex items-center justify-center mb-1">
-                          <svg viewBox="0 0 80 30" width="56" height="21" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="30" rx="4" fill="#FFCC00"/><text x="40" y="22" textAnchor="middle" fontFamily="Arial Black,Arial" fontWeight="900" fontSize="16" fill="#000">MTN</text></svg>
+                          <Image src="/mtn.jpeg" alt="MTN" width={56} height={36} className="object-contain h-9 w-auto" />
                         </div>
                         <p className="font-bold text-sm text-[#141414]">MTN MoMo</p><p className="text-xs text-zinc-400">*165#</p>
                       </button>
                       <button onClick={() => { setPayNetwork("airtel"); setMomoError(""); }} className="p-4 rounded-xl border-2 text-center transition-all" style={{ borderColor: payNetwork === "airtel" ? "#E40000" : "#d8e6dd", background: payNetwork === "airtel" ? "#fff0f0" : "white" }}>
                         <div className="flex items-center justify-center mb-1">
-                          <svg viewBox="0 0 80 30" width="56" height="21" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="30" rx="4" fill="#E40000"/><text x="40" y="22" textAnchor="middle" fontFamily="Arial Black,Arial" fontWeight="900" fontSize="14" fill="#fff">AIRTEL</text></svg>
+                          <Image src="/airtel.svg" alt="Airtel" width={56} height={36} className="object-contain h-9 w-auto" />
                         </div>
                         <p className="font-bold text-sm text-[#141414]">Airtel Money</p><p className="text-xs text-zinc-400">*185#</p>
                       </button>
                       <button onClick={() => { setPayNetwork("card"); setMomoError(""); }} className="p-4 rounded-xl border-2 text-center transition-all col-span-2" style={{ borderColor: payNetwork === "card" ? "#1a3d2b" : "#d8e6dd", background: payNetwork === "card" ? "rgba(26,61,43,0.05)" : "white" }}>
                         <div className="flex items-center justify-center gap-2 mb-1">
-                          <svg viewBox="0 0 48 30" width="38" height="24" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="30" rx="4" fill="#1A1F71"/><circle cx="19" cy="15" r="9" fill="#EB001B"/><circle cx="29" cy="15" r="9" fill="#F79E1B"/><path d="M24 8.3A9 9 0 0 1 28 15a9 9 0 0 1-4 6.7A9 9 0 0 1 20 15a9 9 0 0 1 4-6.7z" fill="#FF5F00"/></svg>
-                          <svg viewBox="0 0 48 30" width="38" height="24" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="30" rx="4" fill="#EB001B"/><text x="24" y="21" textAnchor="middle" fontFamily="Arial Black,Arial" fontWeight="900" fontSize="13" fill="#fff">MC</text></svg>
+                          <Image src="/visa.svg" alt="Visa" width={40} height={26} className="object-contain h-6 w-auto" />
+                          <Image src="/mastercard.svg" alt="Mastercard" width={40} height={26} className="object-contain h-6 w-auto" />
                         </div>
                         <p className="font-bold text-sm text-[#141414]">Pay with Card</p><p className="text-xs text-zinc-400">Visa / Mastercard</p>
                       </button>
@@ -489,7 +489,7 @@ export default function OrderPage() {
         </div>
       </footer>
 
-      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><MessageCircle size={22} /></a>
+      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 
       {iframeUrl && (
         <div className="fixed inset-0 z-[55] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
