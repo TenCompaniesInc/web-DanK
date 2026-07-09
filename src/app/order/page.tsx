@@ -9,14 +9,6 @@ import Link from "next/link";
 import Image from "next/image";
 import NavHeader from "@/components/ui/nav-header";
 
-const riceWeights = [
-  { type: "Long Grain White Rice", weights: [{ label: "1kg", price: 3200 }, { label: "5kg", price: 15500 }, { label: "25kg", price: 75000 }, { label: "50kg", price: 145000 }, { label: "100kg", price: 285000 }] },
-  { type: "Basmati Rice (Imported)", weights: [{ label: "1kg", price: 7200 }, { label: "5kg", price: 35000 }, { label: "10kg", price: 68000 }, { label: "25kg", price: 165000 }] },
-  { type: "Brown Organic Rice", weights: [{ label: "1kg", price: 4400 }, { label: "5kg", price: 21000 }, { label: "25kg", price: 105000 }, { label: "50kg", price: 200000 }] },
-  { type: "Parboiled Rice", weights: [{ label: "1kg", price: 2900 }, { label: "5kg", price: 14000 }, { label: "25kg", price: 68000 }, { label: "50kg", price: 132000 }, { label: "100kg", price: 260000 }] },
-  { type: "Local Ugandan Rice", weights: [{ label: "1kg", price: 2400 }, { label: "5kg", price: 11500 }, { label: "25kg", price: 56000 }, { label: "50kg", price: 108000 }, { label: "100kg", price: 210000 }] },
-  { type: "Jasmine Rice", weights: [{ label: "1kg", price: 5800 }, { label: "5kg", price: 28000 }, { label: "25kg", price: 135000 }] },
-];
 
 type Step = "cart" | "details" | "payment" | "confirm";
 type PayNetwork = "mtn" | "airtel" | "card" | null;
@@ -150,8 +142,8 @@ export default function OrderPage() {
           <p className="text-zinc-400 mt-2 text-sm">Complete your order below or request a bulk quotation.</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="space-y-6">
             {!done && (
               <div className="flex items-center gap-1 sm:gap-2 mb-4 overflow-x-auto">
                 {steps.map((s, i) => (
@@ -431,28 +423,6 @@ export default function OrderPage() {
 
           </div>
 
-          <div className="space-y-6">
-            <Card className="border-2 border-[rgba(200,230,210,0.7)] bg-white/70 backdrop-blur-md">
-              <CardContent className="p-5">
-                <h3 className="text-sm font-bold text-[#1a3d2b] mb-4 flex items-center gap-2 uppercase tracking-wide"><Package size={15} /> Rice Price Guide</h3>
-                <div className="space-y-5">
-                  {riceWeights.map((rice) => (
-                    <div key={rice.type}>
-                      <p className="text-xs font-bold text-[#c8961e] uppercase tracking-wide mb-2">{rice.type}</p>
-                      <div className="space-y-1">
-                        {rice.weights.map((w) => (
-                          <div key={w.label} className="flex justify-between items-center py-1 border-b border-[#f0f5f2] last:border-0">
-                            <span className="text-xs text-zinc-500">{w.label}</span>
-                            <span className="text-xs font-bold text-[#1a3d2b]">UGX {w.price.toLocaleString()}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
 
