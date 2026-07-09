@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { connectDB } from "@/lib/mongodb";
+import User from "@/models/User";
+import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
   providers: [
@@ -10,26 +13,28 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (
-          credentials?.email === process.env.ADMIN_EMAIL &&
-          credentials?.password === process.env.ADMIN_PASSWORD
-        ) {
-          return {
-            id: "1",
-            email: process.env.ADMIN_EMAIL,
-            name: "DAN K Admin",
-          };
-        }
-        return null;
+        if (!credentials?.email || !credentials?.password) return null;
+
+        await connectDB();
+        const email = credentials.email.toLowerCase().trim();
+        const user = await User.findOne({ email });
+
+        // No account, or password never set yet
+        if (!user || !user.hasSetPassword || !user.password) return null;
+
+        const valid = await bcrypt.compare(credentials.password, user.password);
+        if (!valid) return null;
+
+        return {
+          id: String(user._id),
+          email: user.email,
+          name: user.name || "DAN K Admin",
+        };
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
-  pages: {
-    signIn: "/admin/login",
-  },
+  session: { strategy: "jwt" },
+  pages: { signIn: "/admin/login" },
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.user = user;
