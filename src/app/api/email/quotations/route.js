@@ -52,8 +52,8 @@ export async function POST(request) {
         <a href="https://dankstores.com/order" style="display:inline-block;background:#1a3d2b;color:white;padding:12px 24px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;">Place Order Online</a>
       </div>
 
-      <p style="color:#888;font-size:13px;line-height:1.6;margin:0 0 4px;">Questions? Call us on <strong>0700 212 147</strong></p>
-      <p style="color:#888;font-size:13px;margin:0 0 4px;">WhatsApp: <a href="https://wa.me/256700212147" style="color:#1a3d2b;">+256 700 212 147</a></p>
+      <p style="color:#888;font-size:13px;line-height:1.6;margin:0 0 4px;">Questions? Call us on <strong>0731 496 117</strong></p>
+      <p style="color:#888;font-size:13px;margin:0 0 4px;">WhatsApp: <a href="https://wa.me/256731496117" style="color:#1a3d2b;">+256 731 496 117</a></p>
       <p style="color:#bbb;font-size:12px;margin:16px 0 0;">DAN K CHEAP STORES LTD · Covenant Building, Kisenyi Road, Kampala · Open Sun–Fri 7am–7:30pm</p>
     </div>
 

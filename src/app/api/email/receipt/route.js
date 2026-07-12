@@ -79,7 +79,7 @@ export async function POST(request) {
         <p style="color:white;font-size:20px;font-weight:800;font-family:monospace;letter-spacing:2px;margin:0;">${(orderId || "").slice(-8).toUpperCase()}</p>
       </div>
 
-      <p style="color:#888;font-size:13px;line-height:1.6;margin:0 0 8px;">For any questions, contact us at <strong>0700 212 147</strong> or WhatsApp <a href="https://wa.me/256700212147" style="color:#1a3d2b;">+256 700 212 147</a>.</p>
+      <p style="color:#888;font-size:13px;line-height:1.6;margin:0 0 8px;">For any questions, contact us at <strong>0731 496 117</strong> or WhatsApp <a href="https://wa.me/256731496117" style="color:#1a3d2b;">+256 731 496 117</a>.</p>
       <p style="color:#bbb;font-size:12px;margin:0;">DAN K CHEAP STORES LTD · Covenant Building, Kisenyi Road, Kampala · Open Sun–Fri 7am–7:30pm</p>
     </div>
 

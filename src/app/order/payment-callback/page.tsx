@@ -119,7 +119,7 @@ function PaymentCallbackInner() {
           <AlertCircle size={56} className="text-red-500 mx-auto mb-5" />
           <h1 className="text-xl font-bold text-red-500 mb-2">Something Went Wrong</h1>
           <p className="text-sm text-zinc-400 mb-6">{message}</p>
-          <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="inline-block bg-[#1a3d2b] text-white px-8 py-3 rounded-full font-semibold text-sm hover:opacity-90 transition">
+          <a href="https://wa.me/256731496117" target="_blank" rel="noreferrer" className="inline-block bg-[#1a3d2b] text-white px-8 py-3 rounded-full font-semibold text-sm hover:opacity-90 transition">
             Contact Support on WhatsApp
           </a>
         </>

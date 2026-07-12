@@ -24,7 +24,7 @@ const values = [
 ];
 
 const milestones = [
-  { year: "2018", title: "Founded on Kisenyi Road", desc: "Kabala Dan K opens the first store with a simple promise — clean rice at fair prices." },
+  { year: "2013", title: "DAN K Cheap Stores is Founded", desc: "Kabala Dan opens the business with a simple promise — clean, high-quality rice at honest, favourable prices." },
   { year: "2020", title: "Wholesale Expansion", desc: "DAN K begins supplying schools, hotels and restaurants across Kampala." },
   { year: "2022", title: "Team Grows", desc: "Sarah Nakato and Moses Okello join — sales and operations locked in." },
   { year: "2024", title: "Online Store Launches", desc: "DAN K goes digital. Customers can now order rice online and pay via Mobile Money." },
@@ -38,11 +38,12 @@ const team = [
 ];
 
 const branches = [
-  { name: "Nansana Head Office", detail: "Nansana Municipality, Wakiso", tag: "Head Office", isMain: true },
-  { name: "Kisenyi (Main Branch)", detail: "Covenant Building, Kisenyi Road, Kampala", tag: "Main Branch", isMain: true },
-  { name: "Jinja Branch", detail: "Jinja, Eastern Uganda", tag: "Branch", isMain: false },
-  { name: "Luweero Branch", detail: "Luweero, Central Uganda", tag: "Branch", isMain: false },
-  { name: "Katooke Branch", detail: "Katooke, Kampala", tag: "Branch", isMain: false },
+  { name: "Nansana Head Office", detail: "Nansana Business Centre, C16", tag: "Head Office", isMain: true },
+  { name: "Kisenyi Main Branch", detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi", tag: "Main Branch", isMain: true },
+  { name: "Katooke Branch", detail: "Katooke Town Council, along Kisumu Road", tag: "Branch", isMain: false },
+  { name: "Luweero Branch", detail: "Luweero", tag: "Branch", isMain: false },
+  { name: "Iganga Branch", detail: "Ssaza Road, Iganga", tag: "Branch", isMain: false },
+  { name: "Jinja Branch", detail: "Gokale Road, off Main Street Primary School, Jinja", tag: "Branch", isMain: false },
 ];
 
 export default function AboutPage() {
@@ -126,10 +127,10 @@ export default function AboutPage() {
             </FadeIn>
             <FadeIn delay={0.15}>
               <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3">Our Story</p>
-              <h2 className="text-4xl font-bold tracking-tight text-[#141414] mb-6 leading-tight">From Kisenyi Road<br />to Uganda's Kitchens</h2>
-              <p className="text-zinc-500 leading-relaxed mb-4">DAN K CHEAP STORES was founded on Kisenyi Road with a straightforward idea — Ugandans deserve access to clean, high-quality rice without paying inflated market prices or dealing with inconsistent grades.</p>
-              <p className="text-zinc-500 leading-relaxed mb-4">We started small, serving neighbourhood homes and local traders. Today we supply restaurants, hotels, schools, and hospitals across Uganda from five locations — and we've never compromised on the quality of what we sell.</p>
-              <p className="text-zinc-500 leading-relaxed">Every sack that leaves our stores is sorted, cleaned, and graded. Every price you see is the price you pay. That's the DAN K promise — and it hasn't changed since day one.</p>
+              <h2 className="text-4xl font-bold tracking-tight text-[#141414] mb-6 leading-tight">Founded in 2013,<br />Built to Last</h2>
+              <p className="text-zinc-500 leading-relaxed mb-4">DAN K Cheap Stores Ltd was established in 2013 with a straightforward idea — Ugandans deserve clean, high-quality rice at honest, favourable prices, without inconsistent grades or confusing costs.</p>
+              <p className="text-zinc-500 leading-relaxed mb-4">We started by serving homes and local traders, and today we supply schools, restaurants, hotels, retailers and wholesalers across Uganda. We source the majority of our rice from Uganda's finest regions — Butaleja, Busoga, Soroti, Jinja and Mbale — and supplement from Tanzania and Kenya when local stock runs low, so quality and supply never drop.</p>
+              <p className="text-zinc-500 leading-relaxed">Every sack that leaves our stores is sorted, cleaned, and graded. Every price you see is the price you pay. And beyond the rice, we mentor new traders and partner with investors who grow alongside us. That's the DAN K promise — and it hasn't changed since day one.</p>
             </FadeIn>
           </div>
         </div>
@@ -145,22 +146,22 @@ export default function AboutPage() {
             <FadeIn delay={0.1}>
               <div className="p-8 rounded-2xl border-2 border-[rgba(200,230,210,0.7)] bg-white/65 backdrop-blur-md h-full">
                 <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-2">Our Mission</p>
-                <h3 className="text-xl font-bold text-[#1a3d2b] mb-4 leading-tight">Make quality rice accessible to every Ugandan</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">To provide the cleanest, most fairly priced rice and grain products to every household, restaurant, and trader in Uganda — with no compromises on grade and no confusion about pricing. What you see is what you pay.</p>
+                <h3 className="text-xl font-bold text-[#1a3d2b] mb-4 leading-tight">Keep our word to every customer</h3>
+                <p className="text-sm text-zinc-500 leading-relaxed">To deliver high-quality rice at honest, favourable prices — keeping our word to every customer, every time — while building a trusted supply network that serves homes and businesses across Uganda and beyond.</p>
               </div>
             </FadeIn>
             <FadeIn delay={0.2}>
               <div className="p-8 rounded-2xl border-2 border-[rgba(200,230,210,0.7)] bg-white/65 backdrop-blur-md h-full">
                 <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-2">Our Vision</p>
-                <h3 className="text-xl font-bold text-[#1a3d2b] mb-4 leading-tight">Uganda's most trusted grain supplier by 2030</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">To build a supply chain that connects clean, locally sourced grain directly to consumers and businesses across Uganda — starting in Kampala, growing nationwide. We want DAN K to be the name people trust when it comes to what they put on the table.</p>
+                <h3 className="text-xl font-bold text-[#1a3d2b] mb-4 leading-tight">The leading rice supplier in Uganda and beyond</h3>
+                <p className="text-sm text-zinc-500 leading-relaxed">To become the leading supplier of quality rice in Uganda and across the region — recognised everywhere for reliability, fair pricing, and the trust we earn with every sack we deliver.</p>
               </div>
             </FadeIn>
             <FadeIn delay={0.3}>
               <div className="p-8 rounded-2xl border-2 border-[rgba(200,230,210,0.7)] bg-white/65 backdrop-blur-md h-full">
                 <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-2">The Problem We Solve</p>
-                <h3 className="text-xl font-bold text-[#1a3d2b] mb-4 leading-tight">Grain markets are confusing, inconsistent & overpriced</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">Most grain buyers in Uganda face hidden charges, inconsistent quality between purchases, and no way to order without showing up in person. DAN K fixes this — real stock, real prices, online ordering, and Mobile Money payment. No guesswork.</p>
+                <h3 className="text-xl font-bold text-[#1a3d2b] mb-4 leading-tight">Inconsistent quality, unpredictable prices, unreliable supply</h3>
+                <p className="text-sm text-zinc-500 leading-relaxed">Rice buyers in Uganda too often face inconsistent quality, unpredictable pricing, and unreliable supply. DAN K Cheap Stores solves this with clean, consistently graded rice, transparent and favourable prices, and dependable delivery — plus online ordering and Mobile Money payment. No guesswork.</p>
               </div>
             </FadeIn>
           </div>
@@ -246,7 +247,7 @@ export default function AboutPage() {
             <div className="flex items-center justify-center gap-4">
               <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80" alt="Kabala Dan K." className="w-12 h-12 rounded-full object-cover border-2 border-[#c8961e]" />
               <div className="text-left">
-                <p className="font-bold text-white text-sm">Kabala Dan K.</p>
+                <p className="font-bold text-white text-sm">Kabala Dan </p>
                 <p className="text-[#c8961e] text-xs">Founder & Director</p>
               </div>
             </div>
@@ -276,7 +277,7 @@ export default function AboutPage() {
                 <Image src="/emblem.png" alt="DAN K" width={36} height={36} className="object-contain" />
                 <div><p className="font-bold text-white text-sm">DAN K</p><p className="text-[#c8961e] text-[10px] tracking-widest uppercase">Origin of Quality</p></div>
               </div>
-              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Jinja, Luweero & Katooke.</p>
+              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Katooke, Luweero, Iganga & Jinja.</p>
             </div>
             <div>
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-4">Quick Links</p>
@@ -286,7 +287,7 @@ export default function AboutPage() {
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-4">Contact</p>
               <div className="text-zinc-500 text-sm leading-loose">
                 <p>Covenant Building, Kisenyi, Kampala</p>
-                <p>0700 212 147</p>
+                <p>0731 496 117</p>
                 <p>Sun–Fri · 7am – 7:30pm (Closed Sat)</p>
               </div>
             </div>
@@ -301,7 +302,7 @@ export default function AboutPage() {
         </div>
       </footer>
 
-      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      <a href="https://wa.me/256731496117" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-4 border-white" title="Chat with Support on WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
     </main>
   );
 }

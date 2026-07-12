@@ -10,7 +10,7 @@ const initialStaff = [
   {
     name: "Kabala Dan K.",
     role: "Founder & Director",
-    phone: "0700 212 147",
+    phone: "0731 496 117",
     email: "dan@dankstores.com",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
     quote: "We built DAN K to serve Uganda honestly. Every grain we sell carries our name and our promise.",

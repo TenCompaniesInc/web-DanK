@@ -33,11 +33,12 @@ const homeProducts: HomeProduct[] = [
 ];
 
 const branches = [
-  { name: "Nansana Head Office", detail: "Nansana Municipality, Wakiso", tag: "Head Office", isMain: true },
-  { name: "Kisenyi (Main Branch)", detail: "Covenant Building, Kisenyi Road, Kampala", tag: "Main Branch", isMain: true },
-  { name: "Jinja Branch", detail: "Jinja, Eastern Uganda", tag: "Branch", isMain: false },
-  { name: "Luweero Branch", detail: "Luweero, Central Uganda", tag: "Branch", isMain: false },
-  { name: "Katooke Branch", detail: "Katooke, Kampala", tag: "Branch", isMain: false },
+  { name: "Nansana Head Office", detail: "Nansana Business Centre, C16", tag: "Head Office", isMain: true },
+  { name: "Kisenyi Main Branch", detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi", tag: "Main Branch", isMain: true },
+  { name: "Katooke Branch", detail: "Katooke Town Council, along Kisumu Road", tag: "Branch", isMain: false },
+  { name: "Luweero Branch", detail: "Luweero", tag: "Branch", isMain: false },
+  { name: "Iganga Branch", detail: "Ssaza Road, Iganga", tag: "Branch", isMain: false },
+  { name: "Jinja Branch", detail: "Gokale Road, off Main Street Primary School, Jinja", tag: "Branch", isMain: false },
 ];
 
 const staffTestimonials = [
@@ -140,7 +141,7 @@ function ProductModal({ product, onClose, onAdd }: {
           {needsQuote ? (
             <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 mb-3 text-center">
               <p className="text-sm font-bold text-amber-700 mb-1">Quotation required for {totalKg}kg</p>
-              <a href={"https://wa.me/256700212147?text=" + encodeURIComponent("Hello DAN K, I would like a quotation for " + totalKg + "kg of " + product.name + ".")} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-amber-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold mt-2">💬 WhatsApp Quotation</a>
+              <a href={"https://wa.me/256731496117?text=" + encodeURIComponent("Hello DAN K, I would like a quotation for " + totalKg + "kg of " + product.name + ".")} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-amber-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold mt-2">💬 WhatsApp Quotation</a>
             </div>
           ) : (
             <button onClick={handleAdd} className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-[#1a3d2b] active:bg-[#2d6a4f] transition">Add to Cart — UGX {totalAmount.toLocaleString()}</button>
@@ -262,7 +263,7 @@ export default function Home() {
             <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(200,150,30,0.5), transparent)" }} />
           </div>
           <p className="text-sm sm:text-lg text-white/60 max-w-lg mb-8 leading-relaxed font-light">
-            Premium Grade A rice sourced clean, graded right, and priced honestly. Uganda's go-to grain store for homes, restaurants, and traders.
+            High-quality rice at honest, favourable prices — supplying homes, schools, restaurants, hotels, retailers and wholesalers across Uganda since 2013.
           </p>
           <div className="flex gap-3 flex-wrap">
             <Link href="/products" className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white border-2 border-white/25 bg-white/10 backdrop-blur hover:bg-white/20 transition-all active:scale-95">Shop Rice</Link>
@@ -361,11 +362,11 @@ export default function Home() {
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               <div className="p-6 sm:p-8 rounded-2xl border-2 border-[rgba(200,230,210,0.7)] bg-white/65 backdrop-blur-md">
                 <h3 className="text-base sm:text-lg font-bold text-[#1a3d2b] mb-3">Our Mission</h3>
-                <p className="text-sm text-zinc-600 leading-relaxed">To provide the cleanest, most fairly priced rice to every household, restaurant, and trader in Uganda — with no compromises on grade and no confusion about pricing. What you see is what you pay.</p>
+                <p className="text-sm text-zinc-600 leading-relaxed">To deliver high-quality rice at honest, favourable prices — keeping our word to every customer, every time — while building a trusted supply network that serves homes and businesses across Uganda and beyond.</p>
               </div>
               <div className="p-6 sm:p-8 rounded-2xl border-2 border-[rgba(200,230,210,0.7)] bg-white/65 backdrop-blur-md">
                 <h3 className="text-base sm:text-lg font-bold text-[#1a3d2b] mb-3">Our Vision</h3>
-                <p className="text-sm text-zinc-600 leading-relaxed">To be Uganda's most trusted grain supplier by 2030 — building a supply chain that connects clean, locally sourced grain directly to consumers and businesses across the country, starting in Kampala.</p>
+                <p className="text-sm text-zinc-600 leading-relaxed">To become the leading supplier of quality rice in Uganda and across the region — recognised everywhere for reliability, fair pricing, and the trust we earn with every sack we deliver.</p>
               </div>
             </div>
           </FadeIn>
@@ -377,7 +378,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <FadeIn>
             <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3 text-center">Words from the Director</p>
-            <Testimonial quote="We didn't build DAN K to compete — we built it to serve. Every sack of rice you buy here carries the same promise: clean, honest, affordable. Uganda deserves nothing less." highlightedText="clean, honest, affordable" authorName="Kabala Dan ." authorPosition="Founder & Director, DAN K CHEAP STORES LTD" authorImage="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" />
+            <Testimonial quote="What makes us special is simple: we keep our word. We deliver high-quality rice at fair prices, we serve every customer with dedication, and we grow the people around us. This business was built on faith and strong values — and a belief that when God leads, serving others well becomes the truest measure of success." highlightedText="we keep our word" authorName="Kabala Dan" authorPosition="Founder & Director, DAN K CHEAP STORES LTD" authorImage="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" />
           </FadeIn>
         </div>
       </section>
@@ -469,7 +470,7 @@ export default function Home() {
                   <p className="text-[#c8961e] text-[10px] tracking-widest uppercase">Origin of Quality</p>
                 </div>
               </div>
-              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Jinja, Luweero & Katooke.</p>
+              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Katooke, Luweero, Iganga & Jinja.</p>
             </div>
             <div>
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-3">Quick Links</p>
@@ -483,7 +484,7 @@ export default function Home() {
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-3">Contact</p>
               <div className="text-zinc-500 text-sm leading-loose">
                 <p>Covenant Building, Kisenyi, Kampala</p>
-                <p>0700 212 147</p>
+                <p>0731 496 117</p>
                 <p>Sun–Fri · 7am – 7:30pm (Closed Sat)</p>
               </div>
             </div>
@@ -496,7 +497,7 @@ export default function Home() {
       </footer>
 
       {/* WhatsApp FAB */}
-      <a href="https://wa.me/256700212147" target="_blank" rel="noreferrer"
+      <a href="https://wa.me/256731496117" target="_blank" rel="noreferrer"
         className="fixed bottom-6 right-5 sm:bottom-8 sm:right-8 z-[50] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center border-4 border-white active:scale-95 transition-transform"
         title="Chat on WhatsApp"
       ><svg viewBox="0 0 24 24" width="26" height="26" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
