@@ -18,7 +18,7 @@ type StaffMember = {
 };
 
 const fallback: StaffMember[] = [
-  { _id: "1", name: "Kabala Dan K.", role: "Founder & Director", phone: "0731 496 117", email: "dan@dankstores.com", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80", quote: "We built DAN K to serve Uganda honestly. Every grain we sell carries our name and our promise.", active: true, order: 0 },
+  { _id: "1", name: "Kabala Dan K.", role: "Founder & Director", phone: "0731 496 117", email: "dan@dankstores.com", image: "/home/director.jpeg", quote: "We built DAN K to serve Uganda honestly. Every grain we sell carries our name and our promise.", active: true, order: 0 },
   { _id: "2", name: "Sarah Nakato", role: "Head of Sales", phone: "0701 111 222", email: "sarah@dankstores.com", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80", quote: "My job is to make sure every wholesale client gets the best rate and the fastest service.", active: true, order: 1 },
   { _id: "3", name: "Moses Okello", role: "Store Manager", phone: "0702 333 444", email: "moses@dankstores.com", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80", quote: "Every sack that leaves Kisenyi Road passes through me. Quality is not optional here.", active: true, order: 2 },
 ];

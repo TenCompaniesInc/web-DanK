@@ -41,19 +41,19 @@ const branches = [
   { name: "Jinja Branch", detail: "Gokale Road, off Main Street Primary School, Jinja", tag: "Branch", isMain: false },
 ];
 
-const staffTestimonials = [
-  { name: "Kabala Dan K.", designation: "Founder & Director", quote: "We built DAN K to serve Uganda honestly. Every grain we sell carries our name and our promise — clean, affordable, and always reliable.", src: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" },
-  { name: "Sarah Nakato", designation: "Head of Sales", quote: "My job is to make sure every wholesale client gets the best rate and the fastest service. If you need bulk rice in Uganda, I will sort you out.", src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" },
-  { name: "Moses Okello", designation: "Store Manager", quote: "Every sack that leaves our stores passes through me. Quality is not optional here — it is the standard we set from day one.", src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" },
+const fallbackStaff = [
+  { name: "Kabala Dan K.", designation: "Founder & Director", quote: "We built DAN K to serve Uganda honestly. Every grain we sell carries our name and our promise — clean, affordable, and always reliable.", src: "/Users/jast/web-dank/public/home page/director photo.jpeg" },
+  { name: "Maria Kabala", designation: "Assistant Director", quote: "My job is to make sure every wholesale client gets the best rate and the fastest service. If you need bulk rice in Uganda, I will sort you out.", src: "/Users/jast/web-dank/public/home page/ass.director:quality assurance.jpeg" },
+  { name: "Katumba Isaac", designation: "Store Manager", quote: "Every sack that leaves our stores passes through me. Quality is not optional here — it is the standard we set from day one.", src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" },
   { name: "Grace Auma", designation: "Customer Relations", quote: "I make sure every customer — whether they buy 1kg or 100kg — leaves feeling valued. That is what DAN K is about.", src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" },
 ];
 
 const customerTestimonials = [
-  { id: 1, testimonial: "DAN K is the only place I buy my rice from. The quality is always consistent and the prices are unbeatable. Over 2 years and I will never go anywhere else.", author: "Mama Prossy", role: "Restaurant Owner, Kampala", image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80" },
-  { id: 2, testimonial: "We supply our entire school kitchen from DAN K. Clean rice, fair wholesale pricing, and they always deliver on time.", author: "Mr. Ssekandi", role: "School Administrator", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" },
-  { id: 3, testimonial: "Best basmati in Kampala, no question. My guests always ask what rice I use. The answer is always DAN K.", author: "Chef Amara", role: "Private Chef, Kololo", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80" },
-  { id: 4, testimonial: "I buy wholesale from many stores in Uganda. DAN K gives the best price per sack and the quality never disappoints my customers.", author: "Hajji Kateregga", role: "Wholesale Trader, Owino Market", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" },
-  { id: 5, testimonial: "We feed hundreds of patients every day. DAN K understands consistency. Every delivery is on time, every sack is clean.", author: "Sister Florence", role: "Hospital Catering, Mulago", image: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?w=200&q=80" },
+  { id: 1, testimonial: "I have been buying rice in bulk from DAN K Cheap Stores since 2015 and have never once faced an issue with quality or delivery.", author: "Nakintu Evelyn", role: "" },
+  { id: 2, testimonial: "Buying rice from DAN K Cheap Stores is always smooth. I have never had any complications.", author: "Ssabirye Irene", role: "" },
+  { id: 3, testimonial: "DAN K Cheap Stores is the best rice wholesaler in East Africa, in terms of everything.", author: "Ssekitto Emmanuel", role: "" },
+  { id: 4, testimonial: "DAN K Cheap Stores has the best customer care, and they sell the best quality rice.", author: "Mugisha Paul", role: "" },
+  { id: 5, testimonial: "The rice quality DAN K sells is the best in East Africa. I have been a loyal customer since I discovered them in 2021.", author: "Kagoya Zzimenya", role: "" },
 ];
 
 function getWeightOptions(base: number): WeightOption[] {
@@ -158,6 +158,33 @@ export default function Home() {
   const [dealIndex, setDealIndex] = useState(0);
   const [modalProduct, setModalProduct] = useState<{ id: number; name: string; image: string; badge: string | null; basePrice: number } | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [liveDeals, setLiveDeals] = useState<any[]>([]);
+  const [liveFeatured, setLiveFeatured] = useState<any[]>([]);
+  useEffect(() => {
+    fetch("/api/products")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.success && data.products && data.products.length > 0) {
+          setLiveDeals(data.products.filter((p: any) => p.isHotDeal));
+          setLiveFeatured(data.products.filter((p: any) => p.isFeatured));
+        }
+      })
+      .catch(() => {});
+  }, []);
+  const [staffTestimonials, setStaffTestimonials] = useState(fallbackStaff);
+  useEffect(() => {
+    fetch("/api/staff")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.success && data.staff?.length > 0) {
+          const active = data.staff.filter((m: any) => m.active);
+          if (active.length > 0) {
+            setStaffTestimonials(active.map((m: any) => ({ name: m.name, designation: m.role, quote: m.quote, src: m.image })));
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
   const addToCart = useCartStore((s) => s.addToCart);
   const totalItems = useCartStore((s) => s.totalItems);
 
@@ -287,32 +314,36 @@ export default function Home() {
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {hotDeals.map((deal, i) => (
-              <FadeIn key={deal.id} delay={i * 0.1}>
-                <Card
-                  className={`overflow-hidden border-2 border-[rgba(200,230,210,0.7)] bg-white shadow-sm transition-all duration-300 cursor-pointer active:scale-[0.98] ${dealIndex === i ? "ring-2 ring-[#c8961e] shadow-lg" : ""}`}
-                  onClick={() => setModalProduct({ id: deal.id, name: deal.name, image: deal.image, badge: deal.tag, basePrice: deal.basePrice })}
-                >
-                  <div className="relative h-44 sm:h-48 bg-[#d4e8d8]">
-                    <img src={deal.image} alt={deal.name} className="w-full h-full object-cover" />
-                    <span className="absolute top-3 left-3 text-[10px] font-bold tracking-wide uppercase text-[#c8961e] bg-white/95 px-2 py-1 rounded-full">{deal.tag}</span>
-                    <span className="absolute top-3 right-3 text-[10px] font-semibold text-white bg-[#1a3d2b]/80 backdrop-blur px-2 py-1 rounded-full">{deal.duration}</span>
-                  </div>
-                  <CardContent className="p-4">
-                    <p className="font-semibold text-sm sm:text-base text-[#141414] mb-1">{deal.name}</p>
-                    <p className="text-xs text-zinc-400 mb-2">{deal.weight} sack</p>
-                    <div className="flex items-center gap-2">
-                      <p className="text-xl sm:text-2xl font-bold text-[#1a3d2b]">UGX {deal.price.toLocaleString()}</p>
-                      <p className="text-xs text-zinc-400 line-through">UGX {deal.oldPrice.toLocaleString()}</p>
+            {liveDeals.length === 0 ? (
+              <div className="col-span-full text-center py-14">
+                <p className="text-zinc-400 text-sm">Hot deals coming soon — check back shortly.</p>
+              </div>
+            ) : (
+              liveDeals.map((deal, i) => (
+                <FadeIn key={deal._id} delay={i * 0.1}>
+                  <Card
+                    className={`overflow-hidden border-2 border-[rgba(200,230,210,0.7)] bg-white shadow-sm transition-all duration-300 cursor-pointer active:scale-[0.98] ${dealIndex === i ? "ring-2 ring-[#c8961e] shadow-lg" : ""}`}
+                    onClick={() => setModalProduct({ id: deal._id, name: deal.name, image: deal.image || "https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=600&q=80", badge: deal.badge, basePrice: deal.price })}
+                  >
+                    <div className="relative h-44 sm:h-48 bg-[#d4e8d8]">
+                      <img src={deal.image || "https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=600&q=80"} alt={deal.name} className="w-full h-full object-cover" />
+                      {deal.badge && <span className="absolute top-3 left-3 text-[10px] font-bold tracking-wide uppercase text-[#c8961e] bg-white/95 px-2 py-1 rounded-full">{deal.badge}</span>}
                     </div>
-                  </CardContent>
-                </Card>
-              </FadeIn>
-            ))}
+                    <CardContent className="p-4">
+                      <p className="font-semibold text-sm sm:text-base text-[#141414] mb-1">{deal.name}</p>
+                      <p className="text-xs text-zinc-400 mb-2">{deal.unit}</p>
+                      <p className="text-xl sm:text-2xl font-bold text-[#1a3d2b]">UGX {deal.price.toLocaleString()}</p>
+                    </CardContent>
+                  </Card>
+                </FadeIn>
+              ))
+            )}
           </div>
-          <div className="flex justify-center gap-2 mt-6">
-            {hotDeals.map((_, i) => (<button key={i} onClick={() => setDealIndex(i)} className={`h-2 rounded-full transition-all ${dealIndex === i ? "bg-[#1a3d2b] w-6" : "bg-[#d8e6dd] w-2"}`} />))}
-          </div>
+          {liveDeals.length > 0 && (
+            <div className="flex justify-center gap-2 mt-6">
+              {liveDeals.map((_, i) => (<button key={i} onClick={() => setDealIndex(i)} className={`h-2 rounded-full transition-all ${dealIndex === i ? "bg-[#1a3d2b] w-6" : "bg-[#d8e6dd] w-2"}`} />))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -329,24 +360,30 @@ export default function Home() {
             </div>
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            {homeProducts.map((p, i) => (
-              <FadeIn key={p.id} delay={i * 0.08}>
-                <div
-                  className="overflow-hidden border-2 border-[rgba(200,230,210,0.65)] bg-white rounded-2xl active:scale-[0.98] transition-all duration-200 cursor-pointer"
-                  onClick={() => setModalProduct({ id: p.id, name: p.name, image: p.image, badge: p.badge, basePrice: p.price })}
-                >
-                  <div className="relative h-36 sm:h-40 bg-[#e6f0e8]">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                    {p.badge && <span className="absolute top-2 left-2 text-[9px] sm:text-[10px] font-bold uppercase text-white bg-[#1a3d2b] px-2 py-0.5 rounded-full">{p.badge}</span>}
+            {liveFeatured.length === 0 ? (
+              <div className="col-span-full text-center py-14">
+                <p className="text-zinc-400 text-sm">Featured products coming soon.</p>
+              </div>
+            ) : (
+              liveFeatured.map((p, i) => (
+                <FadeIn key={p._id} delay={i * 0.08}>
+                  <div
+                    className="overflow-hidden border-2 border-[rgba(200,230,210,0.65)] bg-white rounded-2xl active:scale-[0.98] transition-all duration-200 cursor-pointer"
+                    onClick={() => setModalProduct({ id: p._id, name: p.name, image: p.image || "https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=400&q=80", badge: p.badge, basePrice: p.price })}
+                  >
+                    <div className="relative h-36 sm:h-40 bg-[#e6f0e8]">
+                      <img src={p.image || "https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=400&q=80"} alt={p.name} className="w-full h-full object-cover" />
+                      {p.badge && <span className="absolute top-2 left-2 text-[9px] sm:text-[10px] font-bold uppercase text-white bg-[#1a3d2b] px-2 py-0.5 rounded-full">{p.badge}</span>}
+                    </div>
+                    <div className="p-3 sm:p-4">
+                      <p className="font-semibold text-xs sm:text-sm text-[#141414] mb-1 leading-tight">{p.name}</p>
+                      <div className="flex gap-1 flex-wrap mb-1.5">{["25kg", "50kg", "100kg"].map((w) => (<span key={w} className="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full border border-[#d8e6dd] text-zinc-400">{w}</span>))}</div>
+                      <p className="text-base sm:text-lg font-bold text-[#1a3d2b]">UGX {p.price.toLocaleString()}<span className="text-xs font-normal text-zinc-400">{p.unit}</span></p>
+                    </div>
                   </div>
-                  <div className="p-3 sm:p-4">
-                    <p className="font-semibold text-xs sm:text-sm text-[#141414] mb-1 leading-tight">{p.name}</p>
-                    <div className="flex gap-1 flex-wrap mb-1.5">{["25kg", "50kg", "100kg"].map((w) => (<span key={w} className="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full border border-[#d8e6dd] text-zinc-400">{w}</span>))}</div>
-                    <p className="text-base sm:text-lg font-bold text-[#1a3d2b]">UGX {p.price.toLocaleString()}<span className="text-xs font-normal text-zinc-400">{p.unit}</span></p>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
+                </FadeIn>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -378,7 +415,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <FadeIn>
             <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3 text-center">Words from the Director</p>
-            <Testimonial quote="What makes us special is simple: we keep our word. We deliver high-quality rice at fair prices, we serve every customer with dedication, and we grow the people around us. This business was built on faith and strong values — and a belief that when God leads, serving others well becomes the truest measure of success." highlightedText="we keep our word" authorName="Kabala Dan" authorPosition="Founder & Director, DAN K CHEAP STORES LTD" authorImage="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" />
+            <Testimonial quote="What makes us special is simple: we keep our word. We deliver high-quality rice at fair prices, we serve every customer with dedication, and we grow the people around us. This business was built on faith and strong values — and a belief that when God leads, serving others well becomes the truest measure of success." highlightedText="we keep our word" authorName="Kabala Dan" authorPosition="Founder & Director, DAN K CHEAP STORES LTD" authorImage="/home/director.jpeg" />
           </FadeIn>
         </div>
       </section>

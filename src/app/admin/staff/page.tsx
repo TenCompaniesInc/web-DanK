@@ -19,6 +19,7 @@ export default function AdminStaff() {
   const [deleting, setDeleting] = useState(false);
   const [toast, setToast] = useState("");
   const [formError, setFormError] = useState("");
+  const [uploading, setUploading] = useState(false);
   const [listError, setListError] = useState("");
 
   const fetchStaff = async () => {
@@ -42,6 +43,27 @@ export default function AdminStaff() {
     setEditMember(m);
     setForm({ name: m.name, role: m.role, phone: m.phone, email: m.email, image: m.image, quote: m.quote, active: m.active, order: m.order });
     setFormError(""); setShowModal(true);
+  };
+
+  const handleImageUpload = async (e: any) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setFormError("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.success) {
+        setForm((prev: any) => ({ ...prev, image: data.url }));
+      } else {
+        setFormError(data.error || "Upload failed.");
+      }
+    } catch {
+      setFormError("Upload failed. Check your connection.");
+    }
+    setUploading(false);
   };
 
   const handleSave = async () => {
@@ -108,7 +130,7 @@ export default function AdminStaff() {
           {staff.map((member) => (
             <div key={member._id} className="bg-white rounded-2xl border-2 border-[rgba(200,230,210,0.5)] overflow-hidden" style={{ opacity: member.active ? 1 : 0.55 }}>
               <div className="flex gap-4 p-5">
-                <img src={member.image || "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80"} alt={member.name} className="w-20 h-20 rounded-xl object-cover object-top border-2 border-[#d8e6dd] flex-shrink-0" />
+                <img src={member.image || "/home/director.jpeg"} alt={member.name} className="w-20 h-20 rounded-xl object-cover object-top border-2 border-[#d8e6dd] flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div>
@@ -166,9 +188,18 @@ export default function AdminStaff() {
                 </div>
               </div>
               <div>
-                <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-1 block">Profile Photo URL</label>
-                <input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="https://images.unsplash.com/..." className="w-full px-4 py-3 rounded-xl border-2 border-[#d8e6dd] text-sm focus:outline-none focus:border-[#1a3d2b] transition" />
-                {form.image && (<img src={form.image} alt="Preview" className="w-16 h-16 rounded-xl object-cover mt-2 border-2 border-[#d8e6dd]" />)}
+                <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-1 block">Profile Photo</label>
+                {form.image && (
+                  <div className="mb-2 relative w-24 h-24 rounded-xl overflow-hidden border-2 border-[#d8e6dd] bg-[#f5f8f6]">
+                    <img src={form.image} alt="Preview" className="w-full h-full object-cover object-top" />
+                    <button type="button" onClick={() => setForm({ ...form, image: "" })} className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white/90 border border-[#d8e6dd] flex items-center justify-center text-zinc-500 hover:text-red-500 transition text-xs">✕</button>
+                  </div>
+                )}
+                <label className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl border-2 border-dashed border-[#d8e6dd] text-sm font-semibold text-[#1a3d2b] cursor-pointer hover:bg-[#f5f8f6] transition">
+                  {uploading ? "Uploading..." : form.image ? "Change Photo" : "📷 Upload Photo"}
+                  <input type="file" accept="image/*" onChange={handleImageUpload} disabled={uploading} className="hidden" />
+                </label>
+                <p className="text-[11px] text-zinc-400 mt-1.5">Tap to choose a photo from your device.</p>
               </div>
               <div>
                 <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-1 block">Quote (shown on website)</label>

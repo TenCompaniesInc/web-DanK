@@ -9,6 +9,8 @@ const ProductSchema = new mongoose.Schema({
   image: { type: String },
   badge: { type: String, default: null },
   inStock: { type: Boolean, default: true },
+  isHotDeal: { type: Boolean, default: false },
+  isFeatured: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export default mongoose.models.Product || mongoose.model("Product", ProductSchema);

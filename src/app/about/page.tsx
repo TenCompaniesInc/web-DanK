@@ -130,7 +130,7 @@ export default function AboutPage() {
               <h2 className="text-4xl font-bold tracking-tight text-[#141414] mb-6 leading-tight">Founded in 2013,<br />Built to Last</h2>
               <p className="text-zinc-500 leading-relaxed mb-4">DAN K Cheap Stores Ltd was established in 2013 with a straightforward idea — Ugandans deserve clean, high-quality rice at honest, favourable prices, without inconsistent grades or confusing costs.</p>
               <p className="text-zinc-500 leading-relaxed mb-4">We started by serving homes and local traders, and today we supply schools, restaurants, hotels, retailers and wholesalers across Uganda. We source the majority of our rice from Uganda's finest regions — Butaleja, Busoga, Soroti, Jinja and Mbale — and supplement from Tanzania and Kenya when local stock runs low, so quality and supply never drop.</p>
-              <p className="text-zinc-500 leading-relaxed">Every sack that leaves our stores is sorted, cleaned, and graded. Every price you see is the price you pay. And beyond the rice, we mentor new traders and partner with investors who grow alongside us. That's the DAN K promise — and it hasn't changed since day one.</p>
+              <p className="text-zinc-500 leading-relaxed">Every sack that leaves our stores is sorted, cleaned, and graded. Every price you see is the price you pay. And beyond the rice, we work closely with the people around us — mentoring new traders and supporting anyone keen to learn the business. That's the DAN K promise — and it hasn't changed since day one.</p>
             </FadeIn>
           </div>
         </div>

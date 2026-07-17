@@ -14,6 +14,8 @@ type Product = {
   image: string;
   badge: string | null;
   inStock: boolean;
+  isHotDeal: boolean;
+  isFeatured: boolean;
 };
 
 const emptyForm = {
@@ -25,6 +27,8 @@ const emptyForm = {
   image: "",
   badge: "",
   inStock: true,
+  isHotDeal: false,
+  isFeatured: false,
 };
 
 const categories = ["Long Grain", "Brown", "Basmati", "Parboiled", "Local", "Jasmine"];
@@ -40,6 +44,7 @@ export default function AdminProducts() {
   const [deleting, setDeleting] = useState(false);
   const [toast, setToast] = useState("");
   const [formError, setFormError] = useState("");
+  const [uploading, setUploading] = useState(false);
   const [listError, setListError] = useState("");
 
   const fetchProducts = async () => {
@@ -86,9 +91,32 @@ export default function AdminProducts() {
       image: p.image || "",
       badge: p.badge || "",
       inStock: p.inStock,
+      isHotDeal: p.isHotDeal ? true : false,
+      isFeatured: p.isFeatured ? true : false,
     });
     setFormError("");
     setShowModal(true);
+  };
+
+  const handleImageUpload = async (e: any) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setFormError("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.success) {
+        setForm((prev) => ({ ...prev, image: data.url }));
+      } else {
+        setFormError(data.error || "Upload failed.");
+      }
+    } catch {
+      setFormError("Upload failed. Check your connection.");
+    }
+    setUploading(false);
   };
 
   const handleSave = async () => {
@@ -108,6 +136,8 @@ export default function AdminProducts() {
       image: form.image,
       badge: form.badge || null,
       inStock: form.inStock,
+      isHotDeal: form.isHotDeal,
+      isFeatured: form.isFeatured,
     };
 
     try {
@@ -310,8 +340,18 @@ export default function AdminProducts() {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-1 block">Image URL</label>
-                <input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="https://images.unsplash.com/..." className="w-full px-4 py-3 rounded-xl border-2 border-[#d8e6dd] text-sm focus:outline-none focus:border-[#1a3d2b] transition" />
+                <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-1 block">Product Photo</label>
+                {form.image && (
+                  <div className="mb-2 relative w-full h-36 rounded-xl overflow-hidden border-2 border-[#d8e6dd] bg-[#f5f8f6]">
+                    <img src={form.image} alt="Preview" className="w-full h-full object-cover" />
+                    <button type="button" onClick={() => setForm({ ...form, image: "" })} className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 border border-[#d8e6dd] flex items-center justify-center text-zinc-500 hover:text-red-500 transition text-sm">✕</button>
+                  </div>
+                )}
+                <label className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl border-2 border-dashed border-[#d8e6dd] text-sm font-semibold text-[#1a3d2b] cursor-pointer hover:bg-[#f5f8f6] transition">
+                  {uploading ? "Uploading..." : form.image ? "Change Photo" : "📷 Upload Photo"}
+                  <input type="file" accept="image/*" onChange={handleImageUpload} disabled={uploading} className="hidden" />
+                </label>
+                <p className="text-[11px] text-zinc-400 mt-1.5">Tap to choose a photo from your device.</p>
               </div>
 
               <div className="flex items-center gap-3">
@@ -319,6 +359,18 @@ export default function AdminProducts() {
                   <span className="w-5 h-5 rounded-full bg-white shadow transition-all" style={{ transform: form.inStock ? "translateX(16px)" : "translateX(0)" }} />
                 </button>
                 <span className="text-sm font-medium text-zinc-600">{form.inStock ? "In Stock" : "Out of Stock"}</span>
+              </div>
+              <div className="flex items-center gap-3 pt-1">
+                <button type="button" onClick={() => setForm({ ...form, isHotDeal: !form.isHotDeal })} className="w-10 h-6 rounded-full transition-all flex items-center px-0.5" style={{ background: form.isHotDeal ? "#c8961e" : "#d8e6dd" }}>
+                  <span className="w-5 h-5 rounded-full bg-white shadow transition-all" style={{ transform: form.isHotDeal ? "translateX(16px)" : "translateX(0)" }} />
+                </button>
+                <span className="text-sm font-medium text-zinc-600">Show in Hot Deals (homepage)</span>
+              </div>
+              <div className="flex items-center gap-3 pt-1">
+                <button type="button" onClick={() => setForm({ ...form, isFeatured: !form.isFeatured })} className="w-10 h-6 rounded-full transition-all flex items-center px-0.5" style={{ background: form.isFeatured ? "#1a3d2b" : "#d8e6dd" }}>
+                  <span className="w-5 h-5 rounded-full bg-white shadow transition-all" style={{ transform: form.isFeatured ? "translateX(16px)" : "translateX(0)" }} />
+                </button>
+                <span className="text-sm font-medium text-zinc-600">Feature on Homepage (Products)</span>
               </div>
 
               <div className="flex gap-3 pt-2">
