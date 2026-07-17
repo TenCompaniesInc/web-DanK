@@ -34,10 +34,10 @@ export default function AdminLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
+    if (status === "unauthenticated" && pathname !== "/admin/set-password") {
       router.push("/admin/login");
     }
-  }, [status, router]);
+  }, [status, router, pathname]);
 
   if (status === "loading") {
     return (
@@ -50,7 +50,7 @@ export default function AdminLayout({
     );
   }
 
-  if (pathname === "/admin/login") return <>{children}</>;
+  if (pathname === "/admin/login" || pathname === "/admin/set-password") return <>{children}</>;
   if (!session) return null;
 
   return (

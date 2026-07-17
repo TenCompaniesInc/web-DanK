@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 
@@ -169,6 +170,12 @@ export default function AdminLogin() {
             {loading ? "Signing in..." : "Sign In →"}
           </button>
 
+          <p className="text-center text-white/40 text-xs mt-5">
+            First time here?{" "}
+            <Link href="/admin/set-password" className="font-semibold text-[#c8961e] underline underline-offset-2 hover:text-[#e0aa2e] transition">
+              Set your password
+            </Link>
+          </p>
           <p className="text-center text-white/25 text-xs mt-6">
             DAN K CHEAP STORES LTD · Admin Only
           </p>
