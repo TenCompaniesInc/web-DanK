@@ -45,14 +45,41 @@ export default function AdminStaff() {
     setFormError(""); setShowModal(true);
   };
 
+  const compressImage = (file: File): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (ev) => { img.src = ev.target?.result as string; };
+      reader.onerror = reject;
+      img.onload = () => {
+        const maxDim = 1600;
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) { height = (height / width) * maxDim; width = maxDim; }
+          else { width = (width / height) * maxDim; height = maxDim; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return reject(new Error("Canvas not supported"));
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("Compression failed"))), "image/jpeg", 0.8);
+      };
+      img.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleImageUpload = async (e: any) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
     setFormError("");
     try {
+      const compressed = await compressImage(file);
       const fd = new FormData();
-      fd.append("file", file);
+      fd.append("file", compressed, "upload.jpg");
       const res = await fetch("/api/upload", { method: "POST", body: fd });
       const data = await res.json();
       if (data.success) {
