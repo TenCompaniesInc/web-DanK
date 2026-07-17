@@ -87,7 +87,11 @@ export default function ContactPage() {
 
       <section className="pt-16 min-h-[40vh] flex items-end justify-start relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0d2418 0%,#1a3d2b 60%,#2d6a4f 100%)" }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #c8961e 0%, transparent 60%)" }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-10 pb-10 sm:pb-14 pt-16 sm:pt-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-10 pb-10 sm:pb-14 pt-16 sm:pt-20 grid md:grid-cols-2 gap-8 items-center w-full">
+          <div className="hidden md:block" style={{ animation: "heroIn 0.7s ease-out 0.15s both" }}>
+            <img src="/contact/contact-photo.jpg" alt="DAN K Cheap Stores" className="w-full h-[300px] object-cover rounded-2xl border-2 border-white/10 shadow-2xl" />
+          </div>
+          <div>
           <p className="text-xs font-bold tracking-[3px] uppercase text-[#c8961e] mb-3" style={{ animation: "heroIn 0.5s ease-out 0.1s both" }}>Get in Touch</p>
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-none mb-4" style={{ animation: "heroIn 0.6s ease-out 0.2s both" }}>
             We are Right Here<br /><span className="text-[#c8961e]">on Kisenyi Road.</span>
@@ -95,6 +99,7 @@ export default function ContactPage() {
           <p className="text-white/60 text-sm sm:text-base max-w-lg leading-relaxed" style={{ animation: "heroIn 0.6s ease-out 0.35s both" }}>
             Walk in, call us, WhatsApp, or send a message below. We respond fast — usually within minutes.
           </p>
+          </div>
         </div>
       </section>
 

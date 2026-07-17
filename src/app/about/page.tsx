@@ -123,7 +123,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             <FadeIn>
-              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80" alt="DAN K Store" className="w-full h-[440px] object-cover rounded-2xl border-2 border-[rgba(200,230,210,0.5)]" />
+              <img src="/about/story-photo.jpg" alt="DAN K Cheap Stores" className="w-full h-[440px] object-cover rounded-2xl border-2 border-[rgba(200,230,210,0.5)]" />
             </FadeIn>
             <FadeIn delay={0.15}>
               <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3">Our Story</p>
