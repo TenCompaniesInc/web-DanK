@@ -58,9 +58,6 @@ const customerTestimonials = [
 
 function getWeightOptions(base: number): WeightOption[] {
   return [
-    { label: "1kg", price: base },
-    { label: "5kg", price: Math.round(base * 4.8) },
-    { label: "10kg", price: Math.round(base * 9.5) },
     { label: "25kg", price: Math.round(base * 23) },
     { label: "50kg", price: Math.round(base * 45) },
     { label: "100kg", price: Math.round(base * 88) },
@@ -89,13 +86,12 @@ function ProductModal({ product, onClose, onAdd }: {
 }) {
   const weightOptions = getWeightOptions(product.basePrice);
   const [selectedWeight, setSelectedWeight] = useState<WeightOption>(weightOptions[0]);
-  const [qty, setQty] = useState(1);
+  const [qtyInput, setQtyInput] = useState("1");
+  const qty = qtyInput === "" ? 1 : Math.max(1, parseInt(qtyInput) || 1);
   const totalKg = getTotalKg(selectedWeight.label, qty);
   const totalAmount = selectedWeight.price * qty;
-  const needsQuote = totalKg > 200;
 
   const handleAdd = () => {
-    if (needsQuote) return;
     onAdd({ id: product.id, name: product.name, price: selectedWeight.price, weight: selectedWeight.label, image: product.image.split("?")[0] });
     onClose();
   };
@@ -122,12 +118,19 @@ function ProductModal({ product, onClose, onAdd }: {
               </button>
             ))}
           </div>
-          <p className="text-xs font-bold uppercase tracking-wide text-zinc-400 mb-2">Quantity</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-zinc-400 mb-2">Quantity (number of bags)</p>
           <div className="flex items-center gap-4 mb-4">
-            <div className="flex items-center gap-3 border-2 border-[#d8e6dd] rounded-xl px-3 py-2">
-              <button onClick={() => setQty(Math.max(1, qty - 1))} className="w-8 h-8 rounded-lg bg-[#f5f8f6] flex items-center justify-center text-[#1a3d2b] active:bg-[#d4e8d8]"><Minus size={14} /></button>
-              <span className="w-8 text-center text-lg font-bold text-[#141414]">{qty}</span>
-              <button onClick={() => setQty(qty + 1)} className="w-8 h-8 rounded-lg bg-[#f5f8f6] flex items-center justify-center text-[#1a3d2b] active:bg-[#d4e8d8]"><Plus size={14} /></button>
+            <div className="flex items-center gap-2 border-2 border-[#d8e6dd] rounded-xl px-2 py-1.5">
+              <button onClick={() => setQtyInput(String(Math.max(1, qty - 1)))} className="w-8 h-8 rounded-lg bg-[#f5f8f6] flex items-center justify-center text-[#1a3d2b] active:bg-[#d4e8d8]"><Minus size={14} /></button>
+              <input
+                type="text"
+                inputMode="numeric"
+                value={qtyInput}
+                onChange={(e) => setQtyInput(e.target.value.replace(/[^0-9]/g, ""))}
+                onBlur={() => { if (qtyInput === "" || parseInt(qtyInput) < 1) setQtyInput("1"); }}
+                className="w-14 text-center text-lg font-bold text-[#141414] focus:outline-none"
+              />
+              <button onClick={() => setQtyInput(String(qty + 1))} className="w-8 h-8 rounded-lg bg-[#f5f8f6] flex items-center justify-center text-[#1a3d2b] active:bg-[#d4e8d8]"><Plus size={14} /></button>
             </div>
             <p className="text-sm text-zinc-400">Total: <strong className="text-[#1a3d2b]">{totalKg}kg</strong></p>
           </div>
@@ -138,14 +141,13 @@ function ProductModal({ product, onClose, onAdd }: {
             </div>
             <p className="text-xl font-bold text-[#1a3d2b]">UGX {totalAmount.toLocaleString()}</p>
           </div>
-          {needsQuote ? (
-            <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 mb-3 text-center">
-              <p className="text-sm font-bold text-amber-700 mb-1">Quotation required for {totalKg}kg</p>
-              <a href={"https://wa.me/256731496117?text=" + encodeURIComponent("Hello DAN K, I would like a quotation for " + totalKg + "kg of " + product.name + ".")} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-amber-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold mt-2">💬 WhatsApp Quotation</a>
+          {totalKg >= 1000 && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3 text-center">
+              <p className="text-xs font-semibold text-amber-700">Ordering {totalKg.toLocaleString()}kg? You may get a better rate with a bulk quotation.</p>
             </div>
-          ) : (
-            <button onClick={handleAdd} className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-[#1a3d2b] active:bg-[#2d6a4f] transition">Add to Cart — UGX {totalAmount.toLocaleString()}</button>
           )}
+          <button onClick={handleAdd} className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-[#1a3d2b] active:bg-[#2d6a4f] transition">Add to Cart — UGX {totalAmount.toLocaleString()}</button>
+          <a href={"https://wa.me/256731496117?text=" + encodeURIComponent("Hello DAN K, I would like a quotation for " + totalKg + "kg of " + product.name + ".")} target="_blank" rel="noreferrer" className="block w-full text-center mt-2 py-2.5 rounded-xl text-xs font-semibold text-[#1a3d2b] border border-[#d8e6dd] active:bg-zinc-50">Need a bulk quote? WhatsApp us</a>
           <button onClick={onClose} className="w-full mt-2 py-2.5 rounded-xl text-sm font-medium text-zinc-400 border border-[#d8e6dd] active:bg-zinc-50">Cancel</button>
         </div>
       </div>
