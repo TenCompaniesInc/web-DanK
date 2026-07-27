@@ -14,9 +14,9 @@ dotenv.config({ path: ".env.local" });
 const authorizedAdmins = [
   { email: "shkyeera20@gmail.com", name: "DAN K Admin" },
   { email: "kabaladan878@gmail.com", name: "Director" },
-  {email: "dankcheapstoresltd@gmail.com", name: "Compqny Admin"},
-  {email: "japhethmwesigwa17@gmail.com", name: "web developer"},
-],
+  {email: "dankcheapstoresltd@gmail.com", name: "Company Admin"},
+  { email: "japhethmwesigwa17@gmail.com", name: "Web Developer" },
+];
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
