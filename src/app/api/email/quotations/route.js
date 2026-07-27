@@ -65,7 +65,7 @@ export async function POST(request) {
 </html>`;
 
     const result = await resend.emails.send({
-      from: "DAN K CHEAP STORES <quotations@dankstores.com>",
+      from: "DAN K CHEAP STORES <orders@dankcheapstores.com>",
       to: [toEmail],
       subject: "Your DAN K Quotation" + (referenceTotal > 0 ? " — UGX " + referenceTotal.toLocaleString() : ""),
       html,

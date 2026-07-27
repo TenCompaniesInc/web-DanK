@@ -91,7 +91,7 @@ export async function POST(request) {
 </html>`;
 
     const result = await resend.emails.send({
-      from: "DAN K CHEAP STORES <receipts@dankstores.com>",
+      from: "DAN K CHEAP STORES <orders@dankcheapstores.com>",
       to: [email],
       subject: "Your DAN K Order Receipt — UGX " + (total || 0).toLocaleString(),
       html,
