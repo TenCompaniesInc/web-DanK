@@ -42,7 +42,7 @@ const branches = [
 ];
 
 const fallbackStaff = [
-  { name: "Kabala Dan K.", designation: "Founder & Director", quote: "We built DAN K to serve Uganda honestly. Every grain we sell carries our name and our promise — clean, affordable, and always reliable.", src: "/Users/jast/web-dank/public/home page/director photo.jpeg" },
+  { name: "Kabala Dan K.", designation: "Founder & Director", quote: "We built DAN K to serve Uganda honestly. Every grain we sell carries our name and our promise — clean, affordable, and always reliable.", src: "/home/director.jpg" },
   { name: "Maria Kabala", designation: "Assistant Director", quote: "My job is to make sure every wholesale client gets the best rate and the fastest service. If you need bulk rice in Uganda, I will sort you out.", src: "/Users/jast/web-dank/public/home page/ass.director:quality assurance.jpeg" },
   { name: "Katumba Isaac", designation: "Store Manager", quote: "Every sack that leaves our stores passes through me. Quality is not optional here — it is the standard we set from day one.", src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" },
   { name: "Grace Auma", designation: "Customer Relations", quote: "I make sure every customer — whether they buy 1kg or 100kg — leaves feeling valued. That is what DAN K is about.", src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" },
@@ -417,7 +417,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <FadeIn>
             <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3 text-center">Words from the Director</p>
-            <Testimonial quote="What makes us special is simple: we keep our word. We deliver high-quality rice at fair prices, we serve every customer with dedication, and we grow the people around us. This business was built on faith and strong values — and a belief that when God leads, serving others well becomes the truest measure of success." highlightedText="we keep our word" authorName="Kabala Dan" authorPosition="Founder & Director, DAN K CHEAP STORES LTD" authorImage="/home/director.jpeg" />
+            <Testimonial quote="What makes us special is simple: we keep our word. We deliver high-quality rice at fair prices, we serve every customer with dedication, and we grow the people around us. This business was built on faith and strong values — and a belief that when God leads, serving others well becomes the truest measure of success." highlightedText="we keep our word" authorName="Kabala Dan" authorPosition="Founder & Director, DAN K CHEAP STORES LTD" authorImage="/home/director.jpg" />
           </FadeIn>
         </div>
       </section>
