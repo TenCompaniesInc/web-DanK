@@ -49,6 +49,7 @@ export async function POST(request) {
     });
 
     const { origin } = new URL(request.url);
+    const baseUrl = process.env.NEXTAUTH_URL || origin;
     const notificationId = process.env.PESAPAL_NOTIFICATION_ID;
 
     if (!notificationId) {
@@ -70,7 +71,7 @@ export async function POST(request) {
       currency: "UGX",
       amount: total,
       description: "DAN K CHEAP STORES order " + order._id.toString().slice(-8).toUpperCase(),
-      callback_url: `${origin}/order/payment-callback`,
+      callback_url: `${baseUrl}/order/payment-callback`,
       redirect_mode: "",
       notification_id: notificationId,
       branch: "DAN K CHEAP STORES LTD",

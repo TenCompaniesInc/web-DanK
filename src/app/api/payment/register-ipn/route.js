@@ -9,7 +9,8 @@ import { registerIPN } from "@/lib/pesapal";
 export async function GET(request) {
   try {
     const { origin } = new URL(request.url);
-    const ipnUrl = `${origin}/api/payment/ipn`;
+    const baseUrl = process.env.NEXTAUTH_URL || origin;
+    const ipnUrl = `${baseUrl}/api/payment/ipn`;
 
     const data = await registerIPN(ipnUrl, "GET");
 
