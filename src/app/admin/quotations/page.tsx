@@ -81,7 +81,7 @@ export default function AdminQuotations() {
     if (!replyText.trim()) { setEmailError("Please type your quotation details before sending."); return; }
     setEmailSending(true); setEmailError(""); setEmailSent(false);
     try {
-      const res = await fetch("/api/email/quotation", {
+      const res = await fetch("/api/email/quotations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ toName: viewQuote.name, toEmail: viewQuote.email, toPhone: viewQuote.phone, quotationText: replyText, referenceTotal: viewQuote.referenceTotal || 0 }),
