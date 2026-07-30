@@ -2,6 +2,7 @@
 // Sends a custom quotation to a customer from the admin quotations page.
 
 import { NextResponse } from "next/server";
+import { generateQuotationPDF } from "@/lib/pdf";
 
 export async function POST(request) {
   try {
@@ -64,11 +65,20 @@ export async function POST(request) {
 </body>
 </html>`;
 
+    let attachments = [];
+    try {
+      const pdfBase64 = await generateQuotationPDF({ toName, toPhone, quotationText, referenceTotal });
+      attachments = [{ filename: "DAN-K-Quotation.pdf", content: pdfBase64 }];
+    } catch (pdfErr) {
+      console.error("Quotation PDF generation failed:", pdfErr);
+    }
+
     const result = await resend.emails.send({
       from: "DAN K CHEAP STORES <orders@dankcheapstores.com>",
       to: [toEmail],
       subject: "Your DAN K Quotation" + (referenceTotal > 0 ? " — UGX " + referenceTotal.toLocaleString() : ""),
       html,
+      attachments,
     });
 
     if (result.error) {

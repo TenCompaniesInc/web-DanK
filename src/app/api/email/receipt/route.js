@@ -3,6 +3,7 @@
 // Call this from the IPN handler or the verify route when paymentStatus becomes "paid".
 
 import { NextResponse } from "next/server";
+import { generateReceiptPDF } from "@/lib/pdf";
 
 export async function POST(request) {
   try {
@@ -90,11 +91,20 @@ export async function POST(request) {
 </body>
 </html>`;
 
+    let attachments = [];
+    try {
+      const pdfBase64 = await generateReceiptPDF({ customerName, orderId, items, total, network, momoNumber, delivery, address });
+      attachments = [{ filename: "DAN-K-Receipt.pdf", content: pdfBase64 }];
+    } catch (pdfErr) {
+      console.error("Receipt PDF generation failed:", pdfErr);
+    }
+
     const result = await resend.emails.send({
       from: "DAN K CHEAP STORES <orders@dankcheapstores.com>",
       to: [email],
       subject: "Your DAN K Order Receipt — UGX " + (total || 0).toLocaleString(),
       html,
+      attachments,
     });
 
     if (result.error) {
