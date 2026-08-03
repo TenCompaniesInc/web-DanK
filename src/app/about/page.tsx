@@ -61,7 +61,7 @@ export default function AboutPage() {
               .map((m: any) => ({
                 name: m.name,
                 role: m.role,
-                image: m.image || "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
+                image: m.image || "home/director.jpg",
               }))
           );
         }
@@ -245,7 +245,7 @@ export default function AboutPage() {
             <div className="text-5xl mb-6 opacity-30">"</div>
             <p className="text-xl md:text-2xl text-white/80 font-medium leading-relaxed italic mb-8">We didn't build DAN K to compete — we built it to serve. Every sack of rice you buy here carries the same promise: clean, honest, affordable. Uganda deserves nothing less.</p>
             <div className="flex items-center justify-center gap-4">
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80" alt="Kabala Dan K." className="w-12 h-12 rounded-full object-cover border-2 border-[#c8961e]" />
+              <img src="home/director.jpg" alt="Kabala Dan ." className="w-12 h-12 rounded-full object-cover border-2 border-[#c8961e]" />
               <div className="text-left">
                 <p className="font-bold text-white text-sm">Kabala Dan </p>
                 <p className="text-[#c8961e] text-xs">Founder & Director</p>
