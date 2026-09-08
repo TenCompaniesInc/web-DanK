@@ -38,12 +38,18 @@ const team = [
 ];
 
 const branches = [
-  { name: "Nansana Head Office", detail: "Nansana Business Centre, C16", tag: "Head Office", isMain: true },
-  { name: "Kisenyi Main Branch", detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi", tag: "Main Branch", isMain: true },
-  { name: "Katooke Branch", detail: "Katooke Town Council, along Kisumu Road", tag: "Branch", isMain: false },
-  { name: "Luweero Branch", detail: "Luweero", tag: "Branch", isMain: false },
-  { name: "Iganga Branch", detail: "Ssaza Road, Iganga", tag: "Branch", isMain: false },
-  { name: "Jinja Branch", detail: "Gokale Road, off Main Street Primary School, Jinja", tag: "Branch", isMain: false },
+  {
+    name: "Nansana Head Office",
+    detail: "Nansana Business Centre, C16",
+    tag: "Head Office",
+    isMain: true,
+  },
+  {
+    name: "Kisenyi Main Branch",
+    detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi",
+    tag: "Main Branch",
+    isMain: false,
+  },
 ];
 
 export default function AboutPage() {
@@ -127,8 +133,8 @@ export default function AboutPage() {
             </FadeIn>
             <FadeIn delay={0.15}>
               <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3">Our Story</p>
-              <h2 className="text-4xl font-bold tracking-tight text-[#141414] mb-6 leading-tight">Founded in 2013,<br />Built to Last</h2>
-              <p className="text-zinc-500 leading-relaxed mb-4">DAN K Cheap Stores Ltd was established in 2013 with a straightforward idea — Ugandans deserve clean, high-quality rice at honest, favourable prices, without inconsistent grades or confusing costs.</p>
+              <h2 className="text-4xl font-bold tracking-tight text-[#141414] mb-6 leading-tight">Founded in 2022,<br />Built to Last</h2>
+              <p className="text-zinc-500 leading-relaxed mb-4">DAN K Cheap Stores Ltd was established in 2022 with a straightforward idea — Ugandans deserve clean, high-quality rice at honest, favourable prices, without inconsistent grades or confusing costs.</p>
               <p className="text-zinc-500 leading-relaxed mb-4">We started by serving homes and local traders, and today we supply schools, restaurants, hotels, retailers and wholesalers across Uganda. We source the majority of our rice from Uganda's finest regions — Butaleja, Busoga, Soroti, Jinja and Mbale — and supplement from Tanzania and Kenya when local stock runs low, so quality and supply never drop.</p>
               <p className="text-zinc-500 leading-relaxed">Every sack that leaves our stores is sorted, cleaned, and graded. Every price you see is the price you pay. And beyond the rice, we work closely with the people around us — mentoring new traders and supporting anyone keen to learn the business. That's the DAN K promise — and it hasn't changed since day one.</p>
             </FadeIn>
@@ -193,8 +199,8 @@ export default function AboutPage() {
           <FadeIn>
             <div className="text-center mb-12">
               <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3">Find Us Across Uganda</p>
-              <h2 className="text-4xl font-bold tracking-tight text-[#141414]">Our Branches</h2>
-              <p className="text-sm text-zinc-400 mt-3">Five locations and growing — serving Uganda one sack at a time.</p>
+              <h2 className="text-4xl font-bold tracking-tight text-[#141414]">Our Branch</h2>
+              <p className="text-sm text-zinc-400 mt-3"> One location and growing — serving Uganda one sack at a time.</p>
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5">

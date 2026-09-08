@@ -437,7 +437,7 @@ export default function OrderPage() {
                 <Image src="/emblem.png" alt="DAN K" width={36} height={36} className="object-contain" />
                 <div><p className="font-bold text-white text-sm">DAN K</p><p className="text-[#c8961e] text-[10px] tracking-widest uppercase">Origin of Quality</p></div>
               </div>
-              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Katooke, Luweero, Iganga & Jinja.</p>
+              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi.</p>
             </div>
             <div>
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-4">Quick Links</p>

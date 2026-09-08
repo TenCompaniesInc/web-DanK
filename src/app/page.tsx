@@ -33,12 +33,18 @@ const homeProducts: HomeProduct[] = [
 ];
 
 const branches = [
-  { name: "Nansana Head Office", detail: "Nansana Business Centre, C16", tag: "Head Office", isMain: true },
-  { name: "Kisenyi Main Branch", detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi", tag: "Main Branch", isMain: true },
-  { name: "Katooke Branch", detail: "Katooke Town Council, along Kisumu Road", tag: "Branch", isMain: false },
-  { name: "Luweero Branch", detail: "Luweero", tag: "Branch", isMain: false },
-  { name: "Iganga Branch", detail: "Ssaza Road, Iganga", tag: "Branch", isMain: false },
-  { name: "Jinja Branch", detail: "Gokale Road, off Main Street Primary School, Jinja", tag: "Branch", isMain: false },
+  {
+    name: "Nansana Head Office",
+    detail: "Nansana Business Centre, C16",
+    tag: "Head Office",
+    isMain: true,
+  },
+  {
+    name: "Kisenyi Main Branch",
+    detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi",
+    tag: "Main Branch",
+    isMain: false,
+  },
 ];
 
 const fallbackStaff = [
@@ -49,7 +55,7 @@ const fallbackStaff = [
 ];
 
 const customerTestimonials = [
-  { id: 1, testimonial: "I have been buying rice in bulk from DAN K Cheap Stores since 2015 and have never once faced an issue with quality or delivery.", author: "Nakintu Evelyn", role: "" },
+  { id: 1, testimonial: "I have been buying rice in bulk from DAN K Cheap Stores since 2023 and have never once faced an issue with quality or delivery.", author: "Nakintu Evelyn", role: "" },
   { id: 2, testimonial: "Buying rice from DAN K Cheap Stores is always smooth. I have never had any complications.", author: "Ssabirye Irene", role: "" },
   { id: 3, testimonial: "DAN K Cheap Stores is the best rice wholesaler in East Africa, in terms of everything.", author: "Ssekitto Emmanuel", role: "" },
   { id: 4, testimonial: "DAN K Cheap Stores has the best customer care, and they sell the best quality rice.", author: "Mugisha Paul", role: "" },
@@ -292,7 +298,7 @@ export default function Home() {
             <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(200,150,30,0.5), transparent)" }} />
           </div>
           <p className="text-sm sm:text-lg text-white/60 max-w-lg mb-8 leading-relaxed font-light">
-            High-quality rice at honest, favourable prices — supplying homes, schools, restaurants, hotels, retailers and wholesalers across Uganda since 2013.
+            High-quality rice at honest, favourable prices — supplying homes, schools, restaurants, hotels, retailers and wholesalers across Uganda since 2022.
           </p>
           <div className="flex gap-3 flex-wrap">
             <Link href="/products" className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white border-2 border-white/25 bg-white/10 backdrop-blur hover:bg-white/20 transition-all active:scale-95">Shop Rice</Link>
@@ -467,8 +473,8 @@ export default function Home() {
           <FadeIn>
             <div className="text-center mb-8 sm:mb-12">
               <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-2">Find Us Across Uganda</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#141414]">Our Branches</h2>
-              <p className="text-sm text-zinc-400 mt-2">Five locations and growing — serving Uganda one sack at a time.</p>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#141414]">Our Branch</h2>
+              <p className="text-sm text-zinc-400 mt-2">One location and growing — serving Uganda one sack at a time.</p>
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -509,7 +515,7 @@ export default function Home() {
                   <p className="text-[#c8961e] text-[10px] tracking-widest uppercase">Origin of Quality</p>
                 </div>
               </div>
-              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Katooke, Luweero, Iganga & Jinja.</p>
+              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi .</p>
             </div>
             <div>
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-3">Quick Links</p>

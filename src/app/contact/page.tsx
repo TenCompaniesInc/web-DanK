@@ -24,12 +24,18 @@ const contactInfo = [
 ];
 
 const branches = [
-  { name: "Nansana Head Office", detail: "Nansana Business Centre, C16", tag: "Head Office", isMain: true },
-  { name: "Kisenyi Main Branch", detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi", tag: "Main Branch", isMain: true },
-  { name: "Katooke Branch", detail: "Katooke Town Council, along Kisumu Road", tag: "Branch", isMain: false },
-  { name: "Luweero Branch", detail: "Luweero", tag: "Branch", isMain: false },
-  { name: "Iganga Branch", detail: "Ssaza Road, Iganga", tag: "Branch", isMain: false },
-  { name: "Jinja Branch", detail: "Gokale Road, off Main Street Primary School, Jinja", tag: "Branch", isMain: false },
+  {
+    name: "Nansana Head Office",
+    detail: "Nansana Business Centre, C16",
+    tag: "Head Office",
+    isMain: true,
+  },
+  {
+    name: "Kisenyi Main Branch",
+    detail: "Covenant Building Plaza, Shop A23, Mengo Kisenyi",
+    tag: "Main Branch",
+    isMain: false,
+  },
 ];
 
 export default function ContactPage() {
@@ -236,8 +242,8 @@ export default function ContactPage() {
           <FadeIn>
             <div className="text-center mb-12">
               <p className="text-xs font-bold tracking-[2px] uppercase text-[#c8961e] mb-3">Find Us Across Uganda</p>
-              <h2 className="text-4xl font-bold tracking-tight text-[#141414]">Our Branches</h2>
-              <p className="text-sm text-zinc-400 mt-3">Five locations and growing — serving Uganda one sack at a time.</p>
+              <h2 className="text-4xl font-bold tracking-tight text-[#141414]">Our Branch</h2>
+              <p className="text-sm text-zinc-400 mt-3">One location and growing — serving Uganda one sack at a time.</p>
             </div>
           </FadeIn>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
@@ -274,7 +280,7 @@ export default function ContactPage() {
                 <Image src="/emblem.png" alt="DAN K" width={36} height={36} className="object-contain" />
                 <div><p className="font-bold text-white text-sm">DAN K</p><p className="text-[#c8961e] text-[10px] tracking-widest uppercase">Origin of Quality</p></div>
               </div>
-              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi. Branches in Katooke, Luweero, Iganga & Jinja.</p>
+              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Head office in Nansana, main branch at Covenant Building, Kisenyi .</p>
             </div>
             <div>
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-4">Quick Links</p>
