@@ -412,7 +412,7 @@ export default function ProductsPage() {
                   <p className="text-[#c8961e] text-[10px] tracking-widest uppercase">Origin of Quality</p>
                 </div>
               </div>
-              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Main branch at Covenant Building, Kisenyi. Branches in Jinja, Luweero & Katooke.</p>
+              <p className="text-zinc-500 text-xs leading-relaxed">Premium rice and grain store. Main branch at Covenant Building, Kisenyi.</p>
             </div>
             <div>
               <p className="text-[10px] font-bold tracking-[2px] uppercase text-zinc-600 mb-4">Quick Links</p>
